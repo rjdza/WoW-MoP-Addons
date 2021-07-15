@@ -1,0 +1,6 @@
+Taracque:
+	- Fixed F. C.: -0 bug (Fallen crusader proc is displayed even if expired)
+	- Fixed an issue when no weapon equipped.
+	- roc updated to 0.9.6 version
+	- Added Swing timer (works for 2hd weapons only now)
+	- Fixed LUA error, where no weapon is equipped.

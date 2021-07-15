@@ -1,0 +1,363 @@
+<Ui>
+
+	<!-- common templates used by separate modules -->
+
+	<!-- adds drag-ability of main frame to any sub-frame. -->
+	<Frame name="RematchDragTemplate" enableMouse="true" virtual="true">
+		<Scripts>
+			<OnMouseDown>
+				Rematch:FrameStartMoving()
+			</OnMouseDown>
+			<OnMouseUp>
+				Rematch:FrameStopMoving()
+			</OnMouseUp>
+		</Scripts>
+	</Frame>
+
+	<!-- frame with a gold border -->
+	<Frame name="RematchBaseFrameTemplate" virtual="true">
+		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize val="16"/>
+			<BorderColor r="1" g=".82" b="0"/>
+		</Backdrop>
+	</Frame>
+
+	<!-- gold title header template that stretches to fit its .text fontstring -->
+	<Frame name="RematchHeaderTemplate" virtual="true">
+		<Size x="140" y="28"/>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString parentKey="text" name="$parentSlotHeaderText" inherits="GameFontNormal" justifyH="CENTER" text=" ">
+					<Size x="0" y="28"/>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</FontString>
+				<Texture file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+					<Size y="17"/>
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentSlotHeaderText" x="-10" y="0"/>
+						<Anchor point="RIGHT" relativePoint="RIGHT" relativeTo="$parentSlotHeaderText" x="10" y="0"/>
+					</Anchors>
+					<TexCoords left="0.00000000" right="1.00000000" top="0.23437500" bottom="0.42187500"/>	
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY" textureSubLevel="1">
+				<Texture name="$parentSlotHeaderF" file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parentSlotHeaderText" x="0" y="0"/>
+						<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" relativeTo="$parentSlotHeaderText" x="0" y="0"/>
+					</Anchors>
+					<TexCoords left="0.00000000" right="1.00000000" top="0.43750000" bottom="0.75000000"/>	
+				</Texture>
+				<Texture name="$parentSlotHeaderLeft" file="Interface\PetBattles\PetJournal">
+					<Anchors>
+						<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentSlotHeaderF" x="0" y="0"/>
+					</Anchors>
+					<Size x="28" y="28"/>	
+					<TexCoords left="0.23437500" right="0.31250000" top="0.06347656" bottom="0.10253906"/>	
+				</Texture>
+				<Texture name="$parentSlotHeaderRight" file="Interface\PetBattles\PetJournal">
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentSlotHeaderF" x="0" y="0"/>
+					</Anchors>
+					<Size x="28" y="28"/>	
+					<TexCoords left="0.23437500" right="0.31250000" top="0.02246094" bottom="0.06152344"/>	
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>		
+
+	<!-- base slot is the empty slot background and highlight texture -->
+	<Button name="RematchBaseSlotTemplate" virtual="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<!-- background/border of pet or ability -->
+				<Texture file="Interface\Buttons\UI-EmptySlot" setAllPoints="true">
+					<TexCoords left="0.15625" right="0.84375" top="0.15625" bottom="0.84375"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture file="Interface\Buttons\UI-ActionButton-Border" alphaMode="ADD">
+			<TexCoords left="0.203125" right="0.796875" top="0.21875" bottom="0.8125"/>
+			<Color r=".5" g=".75" b="1" a=".5"/>
+		</HighlightTexture>
+	</Button>
+
+	<!-- best for 40-48 button sizes -->
+	<Button name="RematchLargeIconTemplate" virtual="true">
+		<Layers>
+			<Layer level="BORDER">
+				<Texture parentKey="icon" file="Interface\Icons\INV_Misc_QuestionMark" setAllPoints="true">
+					<TexCoords left=".075" right=".925" top=".075" bottom=".925"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="4" y="-4"/>
+						<Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Button>
+
+	<!-- best for 28-39 button sizes -->
+	<Button name="RematchMediumIconTemplate" virtual="true">
+		<Layers>
+			<Layer level="BORDER">
+				<Texture parentKey="icon" file="Interface\Icons\INV_Misc_QuestionMark" setAllPoints="true">
+					<TexCoords left=".075" right=".925" top=".075" bottom=".925"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Button>
+
+	<!-- best for 20-27 button sizes -->
+	<Button name="RematchSmallIconTemplate" virtual="true">
+		<Layers>
+			<Layer level="BORDER">
+				<Texture parentKey="icon" file="Interface\Icons\INV_Misc_QuestionMark" setAllPoints="true">
+					<TexCoords left=".075" right=".925" top=".075" bottom=".925"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="2" y="-2"/>
+						<Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Button>
+
+	<!-- best for 16-19 button sizes -->
+	<Button name="RematchTinyIconTemplate" virtual="true">
+		<Layers>
+			<Layer level="BORDER">
+				<Texture parentKey="icon" file="Interface\Icons\INV_Misc_QuestionMark" setAllPoints="true">
+					<TexCoords left=".075" right=".925" top=".075" bottom=".925"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="1" y="-1"/>
+						<Anchor point="BOTTOMRIGHT" x="-1" y="1"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Button>
+
+	<!-- for slots that will receive dragged pets -->
+	<Button name="RematchActivePetTemplate" virtual="true">
+		<Frames>
+			<!-- shine is the cooldown-ending-like "bling" that will show when a pet is loaded -->
+			<Cooldown parentKey="shine" setAllPoints="true" hidden="true"/>
+			<!-- glow is the pulsing border to indicate a slot should receive the pet on the cursor -->
+			<Frame parentKey="glow" setAllPoints="true" hidden="true">
+				<Animations>
+					<AnimationGroup parentKey="animation" looping="REPEAT">
+						<Alpha change="-1.0" duration="0.9" order="1"/>
+						<Alpha change="1.0" duration="0.9" order="2"/>
+					</AnimationGroup>
+				</Animations>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture file="Interface/BUTTONS/CheckButtonHilight" alphaMode="ADD">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="-2" y="2"/>
+								<Anchor point="BOTTOMRIGHT" x="2" y="-2"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnShow>
+						self.animation:Play()
+						self:SetFrameLevel(self:GetParent():GetFrameLevel()+4)
+					</OnShow>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnDragStart>
+				Rematch.PetOnDragStart(self)
+			</OnDragStart>
+			<OnReceiveDrag>
+				Rematch.PetOnReceiveDrag(self)
+			</OnReceiveDrag>
+		</Scripts>
+	</Button>
+
+	<!-- the basic pet slot -->
+	<Button name="RematchBasePetTemplate" inherits="RematchBaseSlotTemplate" virtual="true">
+		<Layers>
+			<Layer level="OVERLAY">
+				<!-- red X for dead pets -->
+				<Texture parentKey="dead" file="Interface\PetBattles\DeadPetIcon" hidden="true">
+					<Size x="38" y="38"/>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+				<!-- gold border shown if pet is the leveling pet -->
+				<Texture parentKey="leveling" file="Interface\PetBattles\PetBattle-GoldSpeedFrame" hidden="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-1" y="1"/>
+						<Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+					</Anchors>
+					<TexCoords left="0.1171875" right="0.7421875" top="0.1171875" bottom="0.734375"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter>
+				Rematch.PetOnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				Rematch.PetOnLeave(self)
+			</OnLeave>
+			<OnClick>
+				Rematch.PetOnClick(self,button)
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<!-- just the mouse functions for base abilities; pet frames should also inherit baseslot and icon size template -->
+	<Button name="RematchBaseAbilityTemplate" virtual="true">
+		<Scripts>
+			<OnEnter>
+				Rematch.AbilityOnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				Rematch.AbilityOnLeave(self)
+			</OnLeave>
+			<OnClick>
+				Rematch.AbilityOnClick(self)
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<!-- template for the "normal" buttons at bottom of window and in panels -->
+	<Button name="RematchPanelButtonTemplate" inherits="UIMenuButtonStretchTemplate" virtual="true">
+		<Size x="62" y="22"/>
+		<NormalFont style="GameFontNormalSmall"/>
+		<HighlightFont style="GameFontHighlightSmall"/>
+		<DisabledFont style="GameFontDisableSmall"/>
+		<Scripts>
+			<OnClick>
+				Rematch.PanelButtonOnClick(self)
+			</OnClick>
+			<OnLoad>
+				-- adjust button styles: gold borders, tone down alpha slightly
+				local name = self:GetName()
+				_G[name.."Left"]:SetVertexColor(1,.82,0)
+				_G[name.."Left"]:SetAlpha(.75)
+				_G[name.."Middle"]:SetVertexColor(1,.82,0)
+				_G[name.."Middle"]:SetAlpha(.75)
+				_G[name.."Right"]:SetVertexColor(1,.82,0)
+				_G[name.."Right"]:SetAlpha(.75)
+			</OnLoad>
+		</Scripts>
+	</Button>
+
+	<!-- used in panels to make text more readable -->
+	<Frame name="RematchDarkInsetTemplate" virtual="true">
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="3" right="3" top="3" bottom="3"/>
+			</BackgroundInsets>
+			<EdgeSize val="12"/>
+			<TileSize val="32"/>
+			<BorderColor r="1" g=".82" b="0"/>
+		</Backdrop>
+	</Frame>
+
+	<!-- checkbuttons in options -->
+	<CheckButton name="RematchCheckButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="26" y="26"/>
+		</Size>
+		<HitRectInsets>
+			<AbsInset left="0" right="-80" top="0" bottom="0"/>
+		</HitRectInsets>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString inherits="GameFontNormalSmall" parentKey="text">
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="-2" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<NormalTexture file="Interface\Buttons\UI-CheckBox-Up">
+			<Color r="1" g=".82" b="0"/>
+		</NormalTexture>
+		<PushedTexture file="Interface\Buttons\UI-CheckBox-Down"/>
+		<HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD"/>
+		<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check"/>
+		<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
+		<Scripts>
+			<OnClick>
+				Rematch.CheckButtonOnClick(self)
+			</OnClick>
+			<OnEnter>
+				Rematch.CheckButtonOnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				Rematch.CheckButtonOnLeave(self)
+			</OnLeave>
+		</Scripts>
+	</CheckButton>
+
+	<!-- template for confirm and incoming frames: a pet and its 3 abilities -->
+	<Button name="RematchConfirmPetTemplate" inherits="RematchBasePetTemplate,RematchLargeIconTemplate" virtual="true">
+		<Size x="48" y="48"/>
+		<Frames>
+			<Button parentArray="ability" inherits="RematchBaseSlotTemplate,RematchSmallIconTemplate,RematchBaseAbilityTemplate">
+				<Size x="22" y="22"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="2" y="9"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="ability" inherits="RematchBaseSlotTemplate,RematchSmallIconTemplate,RematchBaseAbilityTemplate">
+				<Size x="22" y="22"/>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="RIGHT" x="2" y="0"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="ability" inherits="RematchBaseSlotTemplate,RematchSmallIconTemplate,RematchBaseAbilityTemplate">
+				<Size x="22" y="22"/>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="2" y="-9"/>
+				</Anchors>
+			</Button>
+		</Frames>
+	</Button>
+
+	<!-- little X in a circle to be used for clearing editboxes -->
+	<Button name="RematchClearButtonTemplate" virtual="true" forceAlpha="true">
+		<Size x="17" y="17"/>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture file="Interface\FriendsFrame\ClearBroadcastIcon" alpha="0.5" parentKey="texture" setAllPoints="true"/>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter>
+				self.texture:SetAlpha(1.0);                                         
+			</OnEnter>
+			<OnLeave>
+				self.texture:SetAlpha(0.5);
+			</OnLeave>
+			<OnMouseDown>
+				self.texture:SetPoint("TOPLEFT", 1, -1);
+			</OnMouseDown>
+			<OnMouseUp>
+				self.texture:SetPoint("TOPLEFT", 0, 0);
+			</OnMouseUp>
+		</Scripts>
+	</Button>
+
+
+</Ui>

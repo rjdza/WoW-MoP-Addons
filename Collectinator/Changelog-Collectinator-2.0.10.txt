@@ -1,0 +1,41 @@
+tag 2.0.10
+7317ee41981b37bdd70adb78e892e144fc2b0997
+James D. Callahan III <jcallahan@curse.com>
+2014-02-14 02:01:29 -0600
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Fixed ticket #181
+Ressy:
+	- Various fixes: Unclaimed Black Market Container, Secondary pet locations
+	- Various fixes: Retire changes, New mount on Store, Unclaimed Black Market Container
+	- Remove Eregos from Mobs.
+	- Blue Drake only drops from Eregos if you do lvl 80 heroics via Dungeon Finder, which isn't likely these days.
+James D. Callahan III:
+	- Added RETIRED as an acquire type which does not show a tooltip hint for spawning waypoints.
+	- Added CATEGORY_COLORS.hint. Cleanup.
+	- Rearranged some tooltip elements to be where they're supposed to be.
+	- Removed the RETIRED flag check from the tooltip-display function, as the RETIRED acquire type handles this now.
+	- Remove checks for the RETIRED flag from the Expand* functions; these should have been Custom entries, and the companions should have been flagged as such...moot point since the RETIRED acquire type handles it all now.
+	- Added list and tooltip displays for the RETIRED acquire type.
+	- Hey - DISCOVERY isn't a valid acquire type in Collectinator. Go figure.
+	- Attempt to display tooltip information for acquire types which have no acquire data.
+	- Added RETIRED to the list of acquire types which can only be entries in the list; never headers, subheaders, or subentries. Consolidated these into a table named CHILDLESS_ACQUIRE_TYPES.
+	- Ported changes from ARL such as improved list code and behavior of entry-selection: Collectable entries can now be selected via right-clicks.
+	- Missed a spot in the tab code cleanup.
+	- Sanity check to prevent non-existent filters from breaking the UI.
+	- Major refactoring of the tab code.
+	- Replaced usage of non-existent localization with UNKNOWN.
+	- Battle pets which are only obtained from secondary fights will now be displayed with "Secondary" instead of a set of coordinates. Unfortunately, at this time, no such battle pets are defined in the database...
+	- Fixed a couple of AddZoneLocation calls - missing valid is_secondary parameter.
+	- Cleanup, and added support for battle pets with unknown coordinates in a zone.
+	- Clarification and readability changes.
+	- Greatly simplified portrait-setting code and replaced the portrait textures with MUCH higher-quality versions. Thanks to Neffi for the conversion, since SetPortraitToTexture is evil and requires BLP format...
+Ressy:
+	- Update all battle pets for secondary boolean flag
+	- Add rough coding for 'secondary' designation for battle pets
+	- Fix start location of 2 quests
+	- Fix location of mob

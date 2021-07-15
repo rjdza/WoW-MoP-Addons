@@ -1,0 +1,11 @@
+<Bindings>
+	<Binding name="Toggle Rematch Window" header="REMATCH">
+		Rematch:Toggle()
+	</Binding>
+	<Binding name="Toggle Auto Load">
+		Rematch:ToggleAutoLoad()
+	</Binding>
+	<Binding name="Toggle Pet Browser">
+		Rematch:ToggleBrowser()
+	</Binding>
+</Bindings>

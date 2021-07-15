@@ -1,0 +1,25 @@
+------------------------------------------------------------------------
+r107 | xit_draka | 2013-12-28 20:12:40 +0000 (Sat, 28 Dec 2013) | 1 line
+Changed paths:
+   A /tags/v1.5.2 (from /trunk:106)
+
+Tagging as v1.5.2
+------------------------------------------------------------------------
+r106 | xit_draka | 2013-12-28 20:11:48 +0000 (Sat, 28 Dec 2013) | 1 line
+Changed paths:
+   M /trunk/Localization/localization.de.lua
+   M /trunk/Localization/localization.en.lua
+   M /trunk/Localization/localization.esES.lua
+   M /trunk/Localization/localization.esMX.lua
+   M /trunk/Localization/localization.fr.lua
+   M /trunk/Localization/localization.it.lua
+   M /trunk/Localization/localization.koKR.lua
+   M /trunk/Localization/localization.pt.lua
+   M /trunk/Localization/localization.ru.lua
+   M /trunk/Localization/localization.zhCN.lua
+   M /trunk/Localization/localization.zhTW.lua
+   M /trunk/SearcherPawn.lua
+   M /trunk/auc-advanced-searcher-pawn.toc
+
+* Removed Ranged.  The slot is not in existence anymore, and the formerly ranged weapons are now considered main hand weapons.
+------------------------------------------------------------------------

@@ -1,0 +1,165 @@
+<Ui>
+
+	<Frame name="RematchOptions" parentKey="options" parent="RematchDrawer" frameLevel="10" hidden="true" inherits="RematchDragTemplate">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="RematchCurrent" relativePoint="BOTTOMLEFT" x="0" y="6"/>
+			<Anchor point="BOTTOMRIGHT" relativeTo="Rematch" relativePoint="BOTTOMRIGHT"/>
+		</Anchors>
+		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize val="16"/>
+			<BorderColor r="1" g=".82" b="0"/>
+		</Backdrop>
+		<Layers>
+			<Layer level="BACKGROUND" textureSubLevel="-1">
+				<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\Common\ShadowOverlay-Corner">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+					<TexCoords left="1" right="0" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString parentKey="version" inherits="GameFontNormalSmall" justifyH="LEFT" justifyV="BOTTOM">
+					<Size x="188" y="20"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" x="10" y="10"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="RematchOptionsHeader" parentKey="header" inherits="RematchHeaderTemplate">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP" x="0" y="-3"/>
+				</Anchors>
+			</Frame>
+			<Frame parentKey="checks" inherits="RematchDarkInsetTemplate">
+				<Size x="250" y="190"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="16" y="-20"/>
+				</Anchors>
+				<Frames>
+					<CheckButton parentKey="AutoShow" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" x="8" y="-8"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="AutoLoad" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.AutoShow" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="AutoMouseover" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.AutoLoad" relativePoint="BOTTOMLEFT" x="8" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="AutoLoadAlways" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.AutoMouseover" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="KeepSummoned" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.AutoLoadAlways" relativePoint="BOTTOMLEFT" x="-8" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="KeepLeveling" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.KeepSummoned" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="EmptyMissing" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.KeepLeveling" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="DisableShare" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.EmptyMissing" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="LargeWindow" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOP" x="0" y="-8"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="LockWindow" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.LargeWindow" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="LockDrawer" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.LockWindow" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="ShowSidePanel" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.LockDrawer" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="StayForBattle" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.ShowSidePanel" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="AutoConfirm" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.StayForBattle" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="BestOfSpecies" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.AutoConfirm" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+					<CheckButton parentKey="JumpToTeam" inherits="RematchCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.BestOfSpecies" relativePoint="BOTTOMLEFT" x="0" y="4"/>
+						</Anchors>
+					</CheckButton>
+				</Frames>
+			</Frame>
+			<Frame parentKey="tooltip" inherits="RematchDarkInsetTemplate">
+				<Size x="250" y="60"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.checks" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString parentKey="text" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="CENTER">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="16" y="-8"/>
+								<Anchor point="BOTTOMRIGHT" x="-12" y="8"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+			<Button name="RematchOptionsOkayButton" text="OKAY" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
+				</Anchors>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				Rematch.OptionsOnShow(self)
+			</OnShow>
+			<OnHide>
+				Rematch.OptionsOnHide(self)
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+</Ui>

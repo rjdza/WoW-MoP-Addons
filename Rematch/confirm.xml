@@ -1,0 +1,202 @@
+<Ui>
+
+	<Frame name="RematchConfirm" parent="UIParent" frameStrata="DIALOG" enableMouse="true" hidden="true">
+		<Size x="262" y="258"/>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize val="16"/>
+			<BorderColor r="1" g=".82" b="0"/>
+		</Backdrop>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<!-- background behind "Do you want to replace this team:" -->
+				<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-3" y="-36"/>
+					</Anchors>
+				</Texture>
+				<!-- background behind main pets -->
+				<Texture file="Interface\PetBattles\PetJournal">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-36"/>
+						<Anchor point="BOTTOMRIGHT" relativepoint="TOPRIGHT" x="-3" y="-116"/>
+					</Anchors>
+					<TexCoords left="0.21875" right="0.716796875" top="0.5107421875" bottom="0.5888671875"/>
+				</Texture>
+				<!-- background behind yes/no buttons -->
+				<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="3" y="36"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture file="Interface\Common\ShadowOverlay-Corner">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="4" y="-4"/>
+						<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-4" y="-35"/>
+					</Anchors>
+					<TexCoords left="1" right="0" top="0" bottom="1"/>
+				</Texture>
+				<Texture file="Interface\Common\ShadowOverlay-Corner">>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="4" y="38"/>
+						<Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+					</Anchors>
+					<TexCoords left="1" right="0" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString parentKey="question" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-18"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+					<Size x="256" y="17"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-24"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0.21875" bottom="0.09375"/>
+				</Texture>
+				<Texture file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+					<Size x="256" y="17"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-112"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0.09375" bottom="0.21875"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame parentKey="firstTeam">
+				<Size x="262" y="64"/>
+				<Anchors>
+					<Anchor point="TOP" x="0" y="-40"/>
+				</Anchors>
+				<Frames>
+					<Button parentArray="pet" inherits="RematchConfirmPetTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" x="12" y="-13"/>
+						</Anchors>
+					</Button>
+					<Button parentArray="pet" inherits="RematchConfirmPetTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" x="94" y="-13"/>
+						</Anchors>
+					</Button>
+					<Button parentArray="pet" inherits="RematchConfirmPetTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" x="176" y="-13"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+			<!-- everything relating to the display of a second team is a child of this frame -->
+			<Frame parentKey="secondTeam">
+				<Size x="262" y="50"/>
+				<Anchors>
+					<Anchor point="TOP" x="0" y="-122"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<!-- background to "with this:" -->
+						<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="3" y="6"/>
+								<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-3" y="-20"/>
+							</Anchors>
+						</Texture>
+						<!-- background to second team pets -->
+						<Texture file="Interface\PetBattles\PetJournal">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="3" y="-20"/>
+								<Anchor point="BOTTOMRIGHT" relativepoint="TOPRIGHT" x="-3" y="-96"/>
+							</Anchors>
+							<TexCoords left="0.21875" right="0.716796875" top="0.5107421875" bottom="0.5888671875"/>
+						</Texture>
+					</Layer>
+					<Layer level="BORDER">
+						<Texture file="Interface\Common\ShadowOverlay-Corner">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="4" y="5"/>
+								<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-4" y="-19"/>
+							</Anchors>
+							<TexCoords left="1" right="0" top="0" bottom="1"/>
+						</Texture>
+					</Layer>
+					<Layer level="ARTWORK">
+						<FontString text="with this:" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOP" x="0" y="0"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+					<Layer level="OVERLAY">
+						<Texture file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+							<Size x="256" y="17"/>
+							<Anchors>
+								<Anchor point="TOP" x="0" y="-6"/>
+							</Anchors>
+							<TexCoords left="0" right="1" top="0.21875" bottom="0.09375"/>
+						</Texture>
+						<Texture file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+							<Size x="256" y="17"/>
+							<Anchors>
+								<Anchor point="TOP" x="0" y="-94"/>
+							</Anchors>
+							<TexCoords left="0" right="1" top="0.09375" bottom="0.21875"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button parentArray="pet" inherits="RematchConfirmPetTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" x="12" y="-36"/>
+						</Anchors>
+					</Button>
+					<Button parentArray="pet" inherits="RematchConfirmPetTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" x="94" y="-36"/>
+						</Anchors>
+					</Button>
+					<Button parentArray="pet" inherits="RematchConfirmPetTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" x="176" y="-36"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+			<Frame parentKey="header" name="RematchConfirmHeader" inherits="RematchHeaderTemplate">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP" x="0" y="-3"/>
+				</Anchors>
+			</Frame>
+			<Button parentKey="noButton" name="RematchConfirmNoButton" text="NO" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="8" y="8"/>
+				</Anchors>
+			</Button>
+			<Button parentKey="yesButton" name="RematchConfirmYesButton" text="YES" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="-8" y="8"/>
+				</Anchors>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				Rematch:ConfirmOnShow()
+			</OnShow>
+			<OnHide>
+				Rematch:ConfirmOnHide()
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+</Ui>

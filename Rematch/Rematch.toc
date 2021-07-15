@@ -1,0 +1,28 @@
+## Interface: 50400
+## Title: Rematch
+## Author: Gello
+## Version: 2.3.2
+## SavedVariables: RematchSettings, RematchSaved
+templates.xml
+main.xml
+main.lua
+current.xml
+current.lua
+saved.xml
+saved.lua
+drawer.xml
+drawer.lua
+leveling.lua
+options.xml
+options.lua
+share.xml
+share.lua
+confirm.xml
+confirm.lua
+floatingpetcard.xml
+floatingpetcard.lua
+petloading.lua
+roster.lua
+browser.xml
+browser.lua
+bindings.xml

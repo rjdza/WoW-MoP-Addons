@@ -1,0 +1,320 @@
+<Ui>
+
+	<Button name="RematchBrowserListButtonTemplate" virtual="true">
+		<Size x="188" y="30"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\PetBattles\PetJournal" setAllPoints="true">
+					<TexCoords left="0.49804688" right="0.90625000" top="0.12792969" bottom="0.17285156"/>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture parentKey="rarity" file="Interface\ChatFrame\ChatFrameBackground">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="31" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture file="Interface\Common\ShadowOverlay-Corner">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="31" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="1" bottom="0"/>
+				</Texture>
+				<Texture parentKey="icon">
+					<Size x="26" y="26"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-2"/>
+					</Anchors>
+					<TexCoords left="0.075" right="0.925" top="0.075" bottom="0.925"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK" textureSubLevel="1">
+				<Texture parentKey="dead" file="Interface\PetBattles\DeadPetIcon" hidden="true">
+					<Size x="26" y="26"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-2"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture parentKey="type">
+					<Size x="18" y="18"/>
+					<Anchors>
+						<Anchor point="LEFT" x="33" y="2"/>
+					</Anchors>
+					<TexCoords left="0.4921875" right="0.796875" top="0.50390625" bottom="0.65625"/>
+				</Texture>
+				<Texture parentKey="favorite" file="Interface\PetBattles\PetJournal" hidden="true">
+					<Size x="20" y="20"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-4" y="4"/>
+					</Anchors>
+					<TexCoords left="0.11328125" right="0.16210938" top="0.02246094" bottom="0.04687500"/>	
+				</Texture>
+				<FontString parentKey="name" font="GameFontNormalSmall" justifyH="LEFT" justifyV="CENTER">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="60" y="-2"/>
+						<Anchor point="BOTTOMRIGHT" x="-16" y="2"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="level" inherits="SystemFont_Outline_Small">
+					<Anchors>
+						<Anchor point="BOTTOM" relativePoint="BOTTOMLEFT" x="47" y="3"/>
+					</Anchors>
+					<FontHeight>
+						<AbsValue val="9"/>
+					</FontHeight>
+					<Color r=".9" g=".9" b=".9"/>
+				</FontString>
+				<FontString parentKey="breed" inherits="SystemFont_Tiny">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" x="-5" y="4"/>
+					</Anchors>
+				</FontString>
+				<Texture parentKey="leveling" file="Interface\AddOns\Rematch\leveling">
+					<Size x="16" y="16"/>
+					<Anchors>
+						<Anchor point="TOPRIGHT" x="-3" y="-3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture file="Interface\PetBattles\PetJournal" setAllPoints="true" alphaMode="BLEND">
+			<Anchors>
+				<Anchor point="TOPLEFT" x="30" y="0"/>
+				<Anchor point="BOTTOMRIGHT"/>
+			</Anchors>
+			<TexCoords left="0.49804688" right="0.90625000" top="0.17480469" bottom="0.21972656"/>
+		</HighlightTexture>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForDrag("LeftButton")
+				self:RegisterForClicks("AnyUp")
+			</OnLoad>
+			<OnEnter>
+				Rematch.BrowserPetOnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				Rematch.BrowserPetOnLeave(self)
+			</OnLeave>
+			<OnDragStart>
+				Rematch.BrowserPetOnDrag(self)
+			</OnDragStart>
+			<OnClick>
+				Rematch.BrowserPetOnClick(self,button)
+			</OnClick>
+			<OnDoubleClick>
+				Rematch.BrowserPetOnDoubleClick(self,button)
+			</OnDoubleClick>
+		</Scripts>
+	</Button>
+
+	<CheckButton name="RematchBrowserTypeButtonTemplate" virtual="true">
+		<Size x="20" y="20"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="icon" file="Interface\Icons\INV_Misc_QuestionMark" setAllPoints="true"/>
+			</Layer>
+		</Layers>
+		<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+		<CheckedTexture file="Interface\Buttons\CheckButtonHilight" alphaMode="ADD"/>
+		<Scripts>
+			<OnClick>
+				Rematch.BrowserTypeButtonOnClick(self)
+			</OnClick>
+		</Scripts>
+	</CheckButton>
+
+	<Frame name="RematchBrowser" parentKey="browser" parent="Rematch" useParentLevel="true" inherits="RematchBaseFrameTemplate,RematchDragTemplate" hidden="true">
+		<Size x="220" y="402"/>
+		<Anchors>
+			<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="3" y="0"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND" textureSubLevel="-1">
+				<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\Common\ShadowOverlay-Corner">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="1" bottom="0"/>
+				</Texture>
+			</Layer>
+		</Layers>
+
+		<Frames>
+
+			<!-- filter button in topright of browser -->
+			<Button name="$parentFilter" parentKey="filterButton" inherits="UIMenuButtonStretchTemplate" text="FILTER">
+				<Size x="58" y="20"/>
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="-6" y="-6"/>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self.rightArrow:Show()
+					</OnLoad>
+					<OnClick>
+						PlaySound("igMainMenuOptionCheckBoxOn");
+						ToggleDropDownMenu(1, nil, RematchBrowserFilterDropDown, self, 54, 18);
+					</OnClick>
+				</Scripts>						
+			</Button>
+
+			<!-- toggle button for typeBar -->
+			<Button parentKey="toggle">
+				<Size x="25" y="25"/>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parentFilter" relativePoint="TOPLEFT" x="2" y="2"/>
+				</Anchors>
+				<NormalTexture file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up"/>
+				<PushedTexture file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down"/>
+				<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+				<Scripts>
+					<OnClick>
+						Rematch.ToggleTypeBar(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<EditBox parentKey="searchBox" name="$parentSearchBox" inherits="SearchBoxTemplate">
+				<Size x="121" y="20"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="12" y="-6"/>
+				</Anchors>
+				<Scripts>
+					<OnTextChanged>
+						Rematch.SearchBoxOnTextChanged(self)
+					</OnTextChanged>
+					<OnEnterPressed>
+						self:ClearFocus()
+					</OnEnterPressed>
+				</Scripts>
+			</EditBox>
+
+			<!-- the frame that contains Type/Strong vs/Tough vs -->
+			<Frame name="$parentTypeBar" parentKey="typeBar" inherits="InsetFrameTemplate3">
+				<Size x="206" y="50"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="7" y="-28"/>
+				</Anchors>
+				<Frames>
+					<!-- the clear button in topright corner of typebar -->
+					<Button parentKey="clear" inherits="RematchClearButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT" x="-3" y="-5"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								Rematch:TypeBarClearOnClick()
+							</OnClick>
+						</Scripts>
+					</Button>
+					<!-- the 10 pet type buttons along bottom of typebar -->
+					<CheckButton parentArray="buttons" inherits="RematchBrowserTypeButtonTemplate" id="1"/>
+					<CheckButton parentArray="buttons" inherits="RematchBrowserTypeButtonTemplate" id="2"/>
+					<CheckButton parentArray="buttons" inherits="RematchBrowserTypeButtonTemplate" id="3"/>
+					<CheckButton parentArray="buttons" inherits="RematchBrowserTypeButtonTemplate" id="4"/>
+					<CheckButton parentArray="buttons" inherits="RematchBrowserTypeButtonTemplate" id="5"/>
+					<CheckButton parentArray="buttons" inherits="RematchBrowserTypeButtonTemplate" id="6"/>
+					<CheckButton parentArray="buttons" inherits="RematchBrowserTypeButtonTemplate" id="7"/>
+					<CheckButton parentArray="buttons" inherits="RematchBrowserTypeButtonTemplate" id="8"/>
+					<CheckButton parentArray="buttons" inherits="RematchBrowserTypeButtonTemplate" id="9"/>
+					<CheckButton parentArray="buttons" inherits="RematchBrowserTypeButtonTemplate" id="10"/>
+					<!-- the type/strong/tough "tabs" across top of typebar -->
+					<CheckButton parentArray="tabs" inherits="UIRadioButtonTemplate" id="1"/>
+					<CheckButton parentArray="tabs" inherits="UIRadioButtonTemplate" id="2"/>
+					<CheckButton parentArray="tabs" inherits="UIRadioButtonTemplate" id="3"/>
+				</Frames>
+			</Frame>
+
+			<!-- bar at bottom with number of pets listed and filters -->
+			<Frame name="$parentResultsBar" parentKey="resultsBar" inherits="InsetFrameTemplate3" alpha=".75">
+				<Size x="208" y="20"/>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" x="6" y="6"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString parentKey="count" inherits="GameFontNormalSmall" forceAlpha="true">
+							<Anchors>
+								<Anchor point="LEFT" x="10" y="0"/>
+							</Anchors>
+						</FontString>
+						<FontString parentKey="filters" inherits="GameFontNormalSmall" justifyH="RIGHT" forceAlpha="true">
+							<Anchors>
+								<Anchor point="LEFT" x="60" y="0"/>
+								<Anchor point="RIGHT" x="-20" y="0"/>
+							</Anchors>
+						</FontString>
+						<FontString parentKey="owned" inherits="GameFontNormalSmall" justifyH="RIGHT" forceAlpha="true">
+							<Anchors>
+								<Anchor point="LEFT" x="60" y="0"/>
+								<Anchor point="RIGHT" x="-10" y="0"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button parentKey="filterClear" inherits="RematchClearButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT" x="-2" y="-2"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								Rematch.ResetAllBrowserFilters(self)
+							</OnClick>
+						</Scripts>
+					</Button>
+				</Frames>
+			</Frame>
+
+			<Frame parentKey="list" name="RematchBrowserList">
+				<Size x="205" y="382"/>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" x="-7" y="25"/>
+				</Anchors>
+				<Frames>
+					<ScrollFrame name="$parentScrollFrame" inherits="HybridScrollFrameTemplate" parentKey="scrollFrame">
+						<Size x="205" y="492"/> <!-- arbtirary size needed for some reason -->
+						<Anchors>
+							<Anchor point="TOPLEFT" x="0" y="-4"/>
+							<Anchor point="BOTTOMRIGHT" x="0" y="4"/>
+						</Anchors>
+						<Frames>
+							<Slider name="$parentScrollBar" inherits="MinimalHybridScrollBarTemplate" parentKey="scrollBar">
+								<Anchors>
+									<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-2" y="-15"/>
+									<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="-14" y="12"/>
+								</Anchors>
+							</Slider>
+						</Frames>
+					</ScrollFrame>
+				</Frames>
+			</Frame>
+
+		</Frames>
+
+		<Scripts>
+			<OnShow>
+				Rematch.BrowserOnShow(self)
+			</OnShow>
+			<OnHide>
+				Rematch.HideFloatingPetCard(self,true)
+			</OnHide>
+		</Scripts>
+
+	</Frame>
+</Ui>

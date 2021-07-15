@@ -1,0 +1,295 @@
+<Ui>
+
+	<Frame name="RematchShare" parentKey="share" parent="RematchDrawer" frameLevel="10" hidden="true" inherits="RematchDragTemplate">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="RematchCurrent" relativePoint="BOTTOMLEFT" x="0" y="-75"/>
+			<Anchor point="BOTTOMRIGHT" relativeTo="Rematch" relativePoint="BOTTOMRIGHT"/>
+		</Anchors>
+		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize val="16"/>
+			<BorderColor r="1" g=".82" b="0"/>
+		</Backdrop>
+		<Layers>
+			<Layer level="BACKGROUND" textureSubLevel="-1">
+				<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\Common\ShadowOverlay-Corner">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+					<TexCoords left="1" right="0" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture parentKey="statusIcon" file="Interface\DialogFrame\UI-Dialog-Icon-AlertNew">
+					<Size x="28" y="28"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" x="10" y="8"/>
+					</Anchors>
+				</Texture>
+				<FontString parentKey="statusText" text="test" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="CENTER">
+					<Size x="112" y="40"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.statusIcon" relativePoint="RIGHT" x="4" y="2"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="RematchShareHeader" parentKey="header" inherits="RematchHeaderTemplate">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP" x="0" y="-3"/>
+				</Anchors>
+			</Frame>
+			<Frame parentKey="description" inherits="RematchDarkInsetTemplate">
+				<Size x="250" y="76"/>
+				<Anchors>
+					<Anchor point="TOP" x="0" y="-20"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString parentKey="text" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="CENTER">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="16" y="0"/>
+								<Anchor point="BOTTOMRIGHT" x="-16" y="0"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+			<Frame name="RematchMultiLine" parentKey="multiLine" inherits="RematchDarkInsetTemplate">
+				<Size x="250" y="58"/>
+				<Anchors>
+					<Anchor point="TOP" relativeKey="$parent.description" relativePoint="BOTTOM" x="0" y="-4"/>
+				</Anchors>
+				<Frames>
+					<ScrollFrame name="RematchShareMultiLine" parentKey="scrollFrame" inherits="UIPanelScrollFrameTemplate">
+						<Size x="230" y="42"/>
+						<Anchors>
+							<Anchor point="CENTER"/>
+						</Anchors>
+						<ScrollChild>
+							<EditBox name="RematchShareMultiLineEditBox" parentKey="editBox" multiLine="true" letters="256" nonspacewrap="true" autoFocus="true">
+								<Size x="230" y="42"/>
+								<Anchors>
+									<Anchor point="TOPLEFT"/>
+								</Anchors>
+								<Scripts>
+									<OnEscapePressed>
+										Rematch:RematchShareOkButton()
+									</OnEscapePressed>
+									<OnEnterPressed>
+										Rematch:RematchShareSaveButton()
+									</OnEnterPressed>
+									<OnTextChanged>
+										Rematch:MultiLineOnTextChanged()
+									</OnTextChanged>
+								</Scripts>
+								<FontString inherits="ChatFontNormal"/>
+							</EditBox>
+						</ScrollChild>
+					</ScrollFrame>
+				</Frames>
+			</Frame>
+			<Frame parentKey="singleLine" inherits="RematchDarkInsetTemplate">
+				<Size x="250" y="26"/>
+				<Anchors>
+					<Anchor point="TOP" relativeKey="$parent.description" relativePoint="BOTTOM" x="0" y="-4"/>
+				</Anchors>
+				<Frames>
+					<EditBox parentKey="editBox" autoFocus="true">
+						<Anchors>
+							<Anchor point="TOPLEFT" x="8" y="-2"/>
+							<Anchor point="BOTTOMRIGHT" x="-8" y="2"/>
+						</Anchors>
+						<FontString inherits="ChatFontNormal"/>
+						<Scripts>
+							<OnEscapePressed>
+								Rematch:RematchShareOkButton()
+							</OnEscapePressed>
+							<OnEnterPressed>
+								Rematch:SendOnEnterPressed()
+							</OnEnterPressed>
+							<OnTextChanged>
+								Rematch:SendOnTextChanged()
+							</OnTextChanged>
+						</Scripts>
+					</EditBox>
+				</Frames>
+			</Frame>
+			<Button name="RematchShareOkButton" parentKey="okButton" text="OKAY" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
+				</Anchors>
+			</Button>
+			<Button name="RematchShareSaveButton" parentKey="saveButton" text="SAVE" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="RIGHT" relativeKey="$parent.okButton" relativePoint="LEFT"/>
+				</Anchors>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				Rematch:ShareOnShow()
+			</OnShow>
+			<OnHide>
+				Rematch:ShareOnHide()
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+	<Frame name="RematchIncoming" parent="UIParent" frameStrata="HIGH" hidden="true">
+		<Size x="262" y="230"/>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize val="16"/>
+			<BorderColor r="1" g=".82" b="0"/>
+		</Backdrop>
+		<Frames>
+			<Frame parentKey="header" name="RematchIncomingHeader" inherits="RematchHeaderTemplate">
+				<Anchors>
+					<Anchor point="CENTER" relativeTo="$parent" relativePoint="TOP" x="0" y="-3"/>
+				</Anchors>
+			</Frame>
+			<Button parentArray="pet" inherits="RematchConfirmPetTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="12" y="-69"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="pet" inherits="RematchConfirmPetTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="94" y="-69"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="pet" inherits="RematchConfirmPetTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="176" y="-69"/>
+				</Anchors>
+			</Button>
+		</Frames>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<!-- top background -->
+				<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-3" y="-50"/>
+					</Anchors>
+				</Texture>
+				<!-- middle background -->
+				<Texture file="Interface\PetBattles\PetJournal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="3" y="-50"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativepoint="TOPRIGHT" x="-3" y="-134"/>
+					</Anchors>
+					<TexCoords left="0.21875" right="0.716796875" top="0.5107421875" bottom="0.5888671875"/>
+				</Texture>
+				<!-- bottom background -->
+				<Texture file="Interface\PetBattles\PetJournal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="3" y="96"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+					<TexCoords left="0.14453125" right="0.724609375" top="0.380859375" bottom="0.486328125"/>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture file="Interface\Common\ShadowOverlay-Corner">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="4" y="-4"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-4" y="-49"/>
+					</Anchors>
+					<TexCoords left="1" right="0" top="0" bottom="1"/>
+				</Texture>
+				<!-- "<sender> has sent you a battle pet team!" -->
+				<FontString parentKey="greeting" inherits="GameFontHighlight" justifyH="CENTER" justifyV="CENTER">
+					<Size x="240" y="24"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-20"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY">
+				<!-- This is the line above the pets -->
+				<Texture file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+					<Size x="256" y="17"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-38"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0.21875" bottom="0.09375"/>
+				</Texture>
+				<!-- This is the line below the pets -->
+				<Texture file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+					<Size x="256" y="17"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-130"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0.09375" bottom="0.21875"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString parentKey="allClear" text="Do you want to save this team?" inherits="GameFontNormal" justifyH="CENTER" justifyV="CENTER">
+					<Size x="230" y="30"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-138"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="warning" inherits="GameFontNormalSmall" justifyH="CENTER" justifyV="CENTER" hidden="true">
+					<Size x="230" y="30"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-138"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<!-- darkinset with editbox for the team name -->
+			<Frame parentKey="incomingAs" inherits="RematchDarkInsetTemplate">
+				<Size x="160" y="26"/>
+				<Anchors>
+					<Anchor point="TOP" x="0" y="-166"/>
+				</Anchors>
+				<Frames>
+					<EditBox parentKey="editBox" autoFocus="false">
+						<Anchors>
+							<Anchor point="TOPLEFT" x="6" y="-2"/>
+							<Anchor point="BOTTOMRIGHT" x="-6" y="2"/>
+						</Anchors>
+						<FontString inherits="ChatFontNormal" justifyH="CENTER"/>
+						<Scripts>
+							<OnEscapePressed>
+								self:ClearFocus()
+							</OnEscapePressed>
+							<OnEnterPressed>
+								Rematch:RematchIncomingSaveButton()
+							</OnEnterPressed>
+							<OnTextChanged>
+								Rematch:IncomingAsOnTextChanged()
+							</OnTextChanged>
+						</Scripts>
+					</EditBox>
+				</Frames>
+			</Frame>
+			<Button parentKey="cancelButton" name="RematchIncomingCancelButton" text="Cancel" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="8" y="8"/>
+				</Anchors>
+			</Button>
+			<Button parentKey="saveButton" name="RematchIncomingSaveButton" text="Save" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="-8" y="8"/>
+				</Anchors>
+			</Button>
+		</Frames>
+	</Frame>
+
+</Ui>

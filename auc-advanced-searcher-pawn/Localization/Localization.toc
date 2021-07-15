@@ -1,0 +1,9 @@
+## Interface: 50200
+## Title: Localization
+## Author: AnduinLothar (karlkfi@cosmosui.org)
+## Notes: Embeddable addon for sellecting a global localization for addons.
+## X-Curse-Packaged-Version: v1.5.2
+## X-Curse-Project-Name: Auc-Advanced-Searcher-Pawn
+## X-Curse-Project-ID: auc-advanced-searcher-pawn
+## X-Curse-Repository-ID: wow/auc-advanced-searcher-pawn/mainline
+Localization.xml

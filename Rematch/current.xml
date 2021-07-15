@@ -1,0 +1,229 @@
+<Ui>
+
+	<Button name="RematchLoadoutAbilityTemplate" inherits="RematchBaseSlotTemplate,RematchSmallIconTemplate,RematchBaseAbilityTemplate" virtual="true">
+		<Size x="24" y="24"/>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString parentKey="level" inherits="SystemFont_Shadow_Med3" hidden="true">
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+					<Color r="1" g="0.1" b="0.1"/>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Button>
+
+	<!-- these will be have flyouts for current pets' abilities -->
+	<Button name="RematchCurrentAbilityTemplate" inherits="RematchLoadoutAbilityTemplate" virtual="true">
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture parentKey="arrow" file="Interface\Buttons\ActionBarFlyoutButton" hidden="true">
+					<Size x="9" y="15"/>
+					<Anchors>
+						<Anchor point="LEFT" x="-4" y="0"/>
+					</Anchors>
+					<TexCoords left="0.796875" right="0.96875" top="0.0234375" bottom="0.171875"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnClick>
+				Rematch.CurrentAbilityOnClick(self)
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Frame name="RematchAbilityFlyout" enableMouse="true" frameLevel="10" hidden="true">
+		<Size x="56" y="32"/>
+		<Backdrop bgFile="Interface\ChatFrame\ChatFrameBackground" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="3" right="3" top="3" bottom="3"/>
+			</BackgroundInsets>
+			<EdgeSize val="12"/>
+			<TileSize val="32"/>
+			<Color r="0" g="0" b="0"/>
+			<BorderColor r="1" g=".82" b="0"/>
+		</Backdrop>
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture parentKey="arrow" file="Interface\Buttons\ActionBarFlyoutButton">
+					<Size x="9" y="15"/>
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT" x="-3" y="0"/>
+					</Anchors>
+					<TexCoords left="0.96875" right="0.796875" top="0.0234375" bottom="0.171875"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button parentArray="ability" inherits="RematchLoadoutAbilityTemplate">
+				<Anchors>
+					<Anchor point="RIGHT" x="-4" y="0"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						Rematch.FlyoutButtonOnClick(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button parentArray="ability" inherits="RematchLoadoutAbilityTemplate">
+				<Anchors>
+					<Anchor point="LEFT" x="4" y="0"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						Rematch.FlyoutButtonOnClick(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnUpdate>
+				Rematch.FlyoutOnUpdate(self,elapsed)
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+
+	<Button name="RematchCurrentPetTemplate" inherits="RematchBasePetTemplate,RematchLargeIconTemplate,RematchActivePetTemplate" virtual="true">
+		<Size x="48" y="48"/>
+		<Layers>
+			<Layer level="ARTWORK">
+				<!-- background/border of health and xp bar -->
+				<Texture parentKey="healthBG" file="Interface\Archeology\Arch-Progress-BG">
+					<Size x="43" y="12"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="2" y="1"/> <!-- y="-2" -->
+					</Anchors>
+					<TexCoords left="0.005859375" right="0.837890625" top="0.046875" bottom="0.640625"/>
+				</Texture>
+				<Texture parentKey="xpBG" file="Interface\Archeology\Arch-Progress-BG">
+					<Size x="43" y="12"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.healthBG" relativePoint="BOTTOMLEFT" x="0" y="3"/>
+					</Anchors>
+					<TexCoords left="0.005859375" right="0.837890625" top="0.046875" bottom="0.640625"/>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<!-- actual health and xp bar -->
+				<Texture parentKey="health" file="Interface\TargetingFrame\UI-TargetingFrame-BarFill">
+					<Size x="37" y="6"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.healthBG" relativePoint="TOPLEFT" x="3" y="-3"/>
+					</Anchors>
+					<TexCoords left="0" right="0.85" top="0" bottom="1"/>
+					<Color r="0" g="0.85" b="0"/>
+				</Texture>
+				<Texture parentKey="xp" file="Interface\TargetingFrame\UI-TargetingFrame-BarFill">
+					<Size x="37" y="6"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.xpBG" relativePoint="TOPLEFT" x="3" y="-3"/>
+					</Anchors>
+					<TexCoords left="0" right="0.85" top="0" bottom="1"/>
+					<Color r=".2" g=".5" b="1"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<!-- the three abilities to the right of the pet -->
+			<Button parentArray="ability" id="1" inherits="RematchCurrentAbilityTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="2" y="4"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="ability" id="2" inherits="RematchCurrentAbilityTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="2" y="-20"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="ability" id="3" inherits="RematchCurrentAbilityTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="2" y="-44"/>
+				</Anchors>
+			</Button>
+			<!-- level button over the lower right of the pet icon -->
+			<Frame parentKey="level">
+				<Size x="18" y="18"/>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture parentKey="levelBG" file="Interface\PetBattles\PetJournal" setAllPoints="true">
+							<TexCoords left="0.06835938" right="0.10937500" top="0.02246094" bottom="0.04296875"/>	
+						</Texture>
+						<FontString parentKey="text" text="25" font="Fonts\FRIZQT__.TTF" justifyH="CENTER" justifyV="CENTER">
+							<Size x="0" y="12"/>
+							<Anchors>
+								<Anchor point="CENTER" x="1" y="0"/>
+							</Anchors>
+							<Color r="1" g=".82" b="0"/>
+							<Shadow>
+								<Offset x="1" y="-1"/>
+								<Color r="0" g="0" b="0"/>
+							</Shadow>
+							<FontHeight>
+								<AbsValue val="9"/>
+							</FontHeight>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+	</Button>
+
+	<Frame name="RematchCurrent" parentKey="current" useParentLevel="true" parent="Rematch">
+		<Size x="282" y="100"/>
+		<Anchors>
+			<Anchor point="TOPLEFT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\PetBattles\PetJournal">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+					<TexCoords left="0.251953125" right="0.7890625" top="0.486328125" bottom="0.578125"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<!-- separator below current pets -->
+				<Texture file="Interface\PetBattles\_PetJournalHorizTile" tile="horiz">
+					<Size x="0" y="6"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" x="4" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="0"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0.0078125" bottom="0.078125"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="RematchCurrentHeader" parentKey="header" inherits="RematchHeaderTemplate,RematchDragTemplate">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP" x="0" y="-3"/>
+				</Anchors>
+			</Frame>
+
+			<Button parentArray="pet" inherits="RematchCurrentPetTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="8" y="-22"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="pet" inherits="RematchCurrentPetTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="88" y="-22"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="pet" inherits="RematchCurrentPetTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="168" y="-22"/>
+				</Anchors>
+			</Button>
+
+		</Frames>
+	</Frame>
+
+</Ui>

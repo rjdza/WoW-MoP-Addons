@@ -1,0 +1,505 @@
+<Ui>
+
+	<!-- template for HybridScrollFrame of teams in drawer -->
+	<Button name="RematchTeamTemplate" virtual="true">
+		<Size x="163" y="18"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="back" file="Interface\PetBattles\PetJournal" setAllPoints="true">
+					<TexCoords left="0.49804688" right="0.90625000" top="0.12792969" bottom="0.17285156"/>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture parentKey="selectedTexture" file="Interface\Buttons\UI-ListBox-Highlight2" hidden="true">
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+						<Anchor point="BOTTOMRIGHT" x="-45" y="0"/>
+					</Anchors>
+					<Color r=".1" g=".35" b=".75"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture parentArray="ability" file="Interface\Icons\INV_Misc_QuestionMark">
+					<Size x="14" y="14"/>
+					<Anchors>
+						<Anchor point="RIGHT" x="-33" y="0"/>
+					</Anchors>
+					<TexCoords left=".075" right=".925" top=".075" bottom=".925"/>
+				</Texture>
+				<Texture parentArray="ability" file="Interface\Icons\INV_Misc_QuestionMark">
+					<Size x="14" y="14"/>
+					<Anchors>
+						<Anchor point="RIGHT" x="-18" y="0"/>
+					</Anchors>
+					<TexCoords left=".075" right=".925" top=".075" bottom=".925"/>
+				</Texture>
+				<Texture parentArray="ability" file="Interface\Icons\INV_Misc_QuestionMark">
+					<Size x="14" y="14"/>
+					<Anchors>
+						<Anchor point="RIGHT" x="-3" y="0"/>
+					</Anchors>
+					<TexCoords left=".075" right=".925" top=".075" bottom=".925"/>
+				</Texture>
+				<FontString parentKey="name" text="Pet Name" inherits="GameFontNormalSmall" justifyH="LEFT">
+					<Size x="0" y="16"/>
+					<Anchors>
+						<Anchor point="LEFT" x="3" y="0"/>
+						<Anchor point="RIGHT" x="-48" y="0"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<HighlightTexture file="Interface\PetBattles\PetJournal" alphaMode="BLEND">
+			<Anchors>
+				<Anchor point="TOPLEFT"/>
+				<Anchor point="BOTTOMRIGHT" x="-45" y="0"/>
+			</Anchors>
+			<TexCoords left="0.49804688" right="0.90625000" top="0.17480469" bottom="0.21972656"/>
+		</HighlightTexture>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("AnyUp")
+			</OnLoad>
+			<OnClick>
+				Rematch.TeamOnClick(self,button)
+			</OnClick>
+			<OnDoubleClick>
+				Rematch.TeamOnDoubleClick(self,button)
+			</OnDoubleClick>
+			<OnEnter>
+				Rematch.TeamOnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				Rematch.TeamOnLeave(self)
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="RematchLevelingQueueTemplate" virtual="true">
+		<Size x="40" y="22"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="rarity" file="Interface\ChatFrame\ChatFrameBackground">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="0" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture parentKey="icon" file="Interface\Icons\INV_Misc_QuestionMark">
+					<Size x="20" y="20"/>
+					<Anchors>
+						<Anchor point="LEFT" x="1" y="0"/>
+					</Anchors>
+					<TexCoords left=".075" right=".925" top=".075" bottom=".925"/>
+				</Texture>
+				<Texture parentKey="levelBG" file="Interface\PetBattles\PetJournal">
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+					<Size x="18" y="18"/>	
+					<TexCoords left="0.06835938" right="0.10937500" top="0.02246094" bottom="0.04296875"/>	
+				</Texture>
+				<FontString parentKey="level" text="25" font="Fonts\FRIZQT__.TTF">
+					<Size x="0" y="12"/>
+					<Anchors>
+						<Anchor point="CENTER" relativeKey="$parent.levelBG" x="1" y="0"/>
+					</Anchors>
+					<Color r="1" g=".82" b="0"/>
+					<Shadow>
+						<Offset x="1" y="-1"/>
+						<Color r="0" g="0" b="0"/>
+					</Shadow>
+					<FontHeight>
+						<AbsValue val="9"/>
+					</FontHeight>
+				</FontString>
+			</Layer>
+		</Layers>
+		<HighlightTexture file="Interface\PetBattles\PetJournal" alphaMode="BLEND">
+			<Anchors>
+				<Anchor point="TOPLEFT"/>
+				<Anchor point="BOTTOMRIGHT"/>
+			</Anchors>
+			<TexCoords left="0.49804688" right="0.90625000" top="0.17480469" bottom="0.21972656"/>
+		</HighlightTexture>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForDrag("LeftButton")
+				self:RegisterForClicks("AnyUp")
+			</OnLoad>
+			<OnEnter>
+				Rematch.LevelingQueueOnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				Rematch.LevelingQueueOnLeave(self)
+			</OnLeave>
+			<OnDragStart>
+				Rematch.LevelingQueueOnDragStart(self)
+			</OnDragStart>
+			<OnDragStop>
+				Rematch.LevelingQueueOnDragStop(self)
+			</OnDragStop>
+			<OnClick>
+				Rematch.LevelingQueueOnClick(self,button)
+			</OnClick>
+			<OnReceiveDrag>
+				Rematch.LevelingQueueOnReceiveDrag(self)
+			</OnReceiveDrag>
+		</Scripts>
+	</Button>
+
+	<!-- the drawer contains: the list of saved teams, options/send/import/export buttons, leveling slot -->
+	<Frame parentKey="drawer" name="RematchDrawer" useParentLevel="true" parent="Rematch" hidden="true">
+		<Size x="282" y="200"/>
+		<Anchors>
+			<Anchor point="BOTTOMLEFT" x="0" y="30"/>
+		</Anchors>
+		<Frames>
+
+			<!-- the teams window contains the scrollFrame for the team list and the editBox for renaming -->
+			<Frame parentKey="teams" useParentLevel="true">
+				<Size x="188" y="196"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="10" y="-4"/>
+				</Anchors>
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize val="12"/>
+					<BorderColor r="1" g=".82" b="0"/>
+				</Backdrop>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture file="Interface\FrameGeneral\UI-Background-Marble" horizTile="true" vertTile="true">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="4" y="-4"/>
+								<Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Frames>
+					<!-- actual team list hybridscrollframe -->
+					<ScrollFrame name="$parentScrollFrame" inherits="HybridScrollFrameTemplate" parentKey="scrollFrame">
+						<Size x="188" y="196"/> <!-- arbtirary size needed for some reason -->
+						<Anchors>
+							<Anchor point="TOPLEFT" x="4" y="-4"/>
+							<Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+						</Anchors>
+						<Frames>
+							<Slider name="$parentScrollBar" inherits="MinimalHybridScrollBarTemplate" parentKey="scrollBar">
+								<Anchors>
+									<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-2" y="-15"/>
+									<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="-14" y="14"/>
+								</Anchors>
+							</Slider>
+						</Frames>
+					</ScrollFrame>
+
+					<!-- this editbox is anchored over a team list button to rename a team -->
+					<EditBox name="RematchRenameEditBox" parentKey="renameEditBox" letters="128" autoFocus="true" hidden="true">
+						<Size x="144" y="18"/> <!-- 110 18 -->
+						<Frames>
+							<Frame useParentLevel="true" inherits="RematchDarkInsetTemplate">
+								<Backdrop bgFile="Interface\ChatFrame\ChatFrameBackground" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+									<BackgroundInsets>
+										<AbsInset left="3" right="3" top="3" bottom="3"/>
+									</BackgroundInsets>
+									<EdgeSize val="12"/>
+									<TileSize val="32"/>
+									<BorderColor r="1" g=".82" b="0"/>
+									<Color r="0" g="0" b="0" a="1"/>
+								</Backdrop>
+								<Size x="168" y="26"/> <!-- 122 26 -->
+								<Anchors>
+									<Anchor point="TOPLEFT" x="-6" y="4"/>
+								</Anchors>
+								<Layers>
+									<Layer level="BORDER">
+										<!-- blue "highlight" texture overlayed; need solid ChatFrameBackground to block out underlying text -->
+										<Texture file="Interface\Buttons\UI-ListBox-Highlight2">
+											<Anchors>
+												<Anchor point="TOPLEFT" x="4" y="-4"/>
+												<Anchor point="BOTTOMRIGHT" x="-20" y="4"/>
+											</Anchors>
+											<Color r=".05" g=".3" b=".7"/>
+										</Texture>
+									</Layer>
+								</Layers>
+							</Frame>
+							<Button parentKey="clearButton" inherits="RematchClearButtonTemplate" frameStrata="DIALOG">
+								<Anchors>
+									<Anchor point="TOPRIGHT" x="15" y="0"/>
+								</Anchors>
+								<Scripts>
+									<OnClick>
+										self:GetParent():Hide()
+									</OnClick>
+								</Scripts>
+							</Button>
+						</Frames>
+						<FontString inherits="GameFontNormalSmall"/>
+						<Scripts>
+							<OnEscapePressed>
+								self:Hide()
+							</OnEscapePressed>
+							<OnEditFocusLost>
+								self:Hide()
+							</OnEditFocusLost>
+							<OnEnterPressed>
+								Rematch:RenameOnEnterPressed()
+							</OnEnterPressed>
+							<OnTextChanged>
+								Rematch:RenameOnTextChanged()
+							</OnTextChanged>
+						</Scripts>
+					</EditBox>
+
+				</Frames>
+			</Frame>
+
+			<Button name="RematchHelpButton" parentKey="helpButton" text="Help" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" x="-14" y="10"/>
+				</Anchors>
+			</Button>
+			<Button name="RematchImportButton" parentKey="importButton" text="Import" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.helpButton" relativePoint="TOPRIGHT" x="0" y="2"/>
+				</Anchors>
+			</Button>
+			<Button name="RematchOptionsButton" parentKey="optionsButton" text="Options" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.importButton" relativePoint="TOPRIGHT" x="0" y="2"/>
+				</Anchors>
+			</Button>
+
+			<Button name="RematchLevelingSlot" parentKey="leveling" inherits="RematchBasePetTemplate,RematchLargeIconTemplate,RematchActivePetTemplate">
+				<Size x="44" y="44"/>
+				<Anchors>
+					<Anchor point="BOTTOM" relativeKey="$parent.optionsButton" relativePoint="TOP" x="0" y="40"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<FontString text="Leveling:" inherits="GameFontNormalSmall">
+							<Anchors>
+								<Anchor point="BOTTOM" relativePoint="TOP" x="1" y="3"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<!-- level button over the lower right of the pet icon -->
+					<Frame parentKey="level">
+						<Size x="18" y="18"/>
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture parentKey="levelBG" file="Interface\PetBattles\PetJournal" setAllPoints="true">
+									<TexCoords left="0.06835938" right="0.10937500" top="0.02246094" bottom="0.04296875"/>	
+								</Texture>
+								<FontString parentKey="text" text="25" font="Fonts\FRIZQT__.TTF" justifyH="CENTER" justifyV="CENTER">
+									<Size x="0" y="12"/>
+									<Anchors>
+										<Anchor point="CENTER" x="1" y="0"/>
+									</Anchors>
+									<Color r="1" g=".82" b="0"/>
+									<Shadow>
+										<Offset x="1" y="-1"/>
+										<Color r="0" g="0" b="0"/>
+									</Shadow>
+									<FontHeight>
+										<AbsValue val="9"/>
+									</FontHeight>
+								</FontString>
+							</Layer>
+						</Layers>
+					</Frame>
+				</Frames>
+				<Scripts>
+					<OnClick>
+						Rematch.LevelingSlotOnClick(self,button)
+					</OnClick>
+					<OnEnter>
+						Rematch.LevelingSlotOnEnter(self)
+					</OnEnter>
+					<OnLeave>
+						Rematch.LevelingSlotOnLeave(self)
+					</OnLeave>
+				</Scripts>
+			</Button>
+		</Frames>
+
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture parentKey="doodad" file="Interface\PetBattles\PetJournal">
+					<Size x="48" y="24"/>
+					<Anchors>
+						<Anchor point="BOTTOM" relativeKey="$parent.optionsButton" relativePoint="TOP" x="-4" y="8"/>
+					</Anchors>
+					<TexCoords left="0.4140625" right="0.291015625" top="0.3056640625" bottom="0.3369140625"/>
+				</Texture>
+			</Layer>
+		</Layers>
+
+		<Scripts>
+			<OnShow>
+				Rematch:DrawerOnShow()
+			</OnShow>
+			<OnHide>
+				Rematch:DrawerOnHide()
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+	<!-- Leveling Queue -->
+
+	<Frame name="RematchLevelingQueueFrame" parent="RematchLevelingSlot" frameStrata="MEDIUM" enableMouse="true" hidden="true">
+		<Size x="62" y="118"/>
+		<Anchors>
+			<Anchor point="TOP" relativePoint="BOTTOM" x="0" y="0"/>
+		</Anchors>
+		<Backdrop bgFile="Interface\ChatFrame\ChatFrameBackground" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="3" right="3" top="3" bottom="3"/>
+			</BackgroundInsets>
+			<EdgeSize val="12"/>
+			<TileSize val="32"/>
+			<Color r="0" g="0" b="0"/>
+			<BorderColor r="1" g=".82" b="0"/>
+		</Backdrop>
+		<Frames>
+			<ScrollFrame name="$parentScrollFrame" inherits="HybridScrollFrameTemplate" parentKey="scrollFrame">
+				<Size x="66" y="118"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="4" y="-4"/>
+					<Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+				</Anchors>
+				<Frames>
+					<Slider name="$parentScrollBar" inherits="MinimalHybridScrollBarTemplate" parentKey="scrollBar">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="0" y="-16"/>
+							<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="-12" y="15"/>
+						</Anchors>
+					</Slider>
+				</Frames>
+			</ScrollFrame>
+			<!-- a scrollframe can't receive clicks/drags; this invisible button will capture clicks/drags to empty area of scrollframe -->
+			<Button parentKey="emptyCapture">
+				<Size x="54" y="16"/>
+				<Anchors>
+					<!-- top will be anchored in UpdateLevelingQueue() -->
+					<Anchor point="BOTTOM" x="0" y="4"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						Rematch:LevelingQueueOnReceiveDrag()
+					</OnClick>
+					<OnReceiveDrag>
+						Rematch:LevelingQueueOnReceiveDrag()
+					</OnReceiveDrag>
+				</Scripts>
+			</Button>
+			<!-- this glow frame pulses when a pet is on the cursor and queueframe is open -->
+			<Frame parentKey="glow" setAllPoints="true" hidden="true">
+				<Animations>
+					<AnimationGroup parentKey="animation" looping="REPEAT">
+						<Alpha change="-1.0" duration="0.9" order="1"/>
+						<Alpha change="1.0" duration="0.9" order="2"/>
+					</AnimationGroup>
+				</Animations>
+				<Backdrop edgeFile="Interface\TutorialFrame\UI-TutorialFrame-CalloutGlow" alphaMode="ADD">
+					<EdgeSize>
+						<AbsValue val="8"/>
+					</EdgeSize>
+				</Backdrop>
+				<Scripts>
+					<OnShow>
+						self.animation:Play()
+						self:SetFrameLevel(self:GetParent():GetFrameLevel()+4)
+					</OnShow>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnUpdate>
+				Rematch.LevelingQueueOnUpdate(self,elapsed)
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+
+	<Frame name="RematchHelp" parentKey="help" parent="RematchDrawer" hidden="true">
+		<Scripts>
+			<OnShow>
+				Rematch.HelpOnShow(self)
+			</OnShow>
+			<OnHide>
+				Rematch.HelpOnHide(self)
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+
+	<!-- side panel for collapsed view -->
+	<Frame parentKey="sidePanel" parent="Rematch" frameStrata="LOW" inherits="RematchBaseFrameTemplate,RematchDragTemplate">
+		<Size x="84" y="128"/>
+		<Anchors>
+			<Anchor point="TOPRIGHT" relativePoint="TOPLEFT" x="8" y="0"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND" textureSubLevel="-1">
+				<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="backShadow" file="Interface\Common\ShadowOverlay-Corner">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+					<TexCoords left="1" right="0" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<!-- the flat arrow at the edge of the panel to pull panel out or push panel in -->
+			<Button parentKey="toggleButton">
+				<Size x="16" y="64"/>
+				<Scripts>
+					<OnMouseDown>
+						self:SetSize(15,60)
+					</OnMouseDown>
+					<OnMouseUp>
+						self:SetSize(16,64)
+					</OnMouseUp>
+					<OnClick>
+						Rematch:SidePanelToggle()
+					</OnClick>
+				</Scripts>
+				<NormalTexture file="Interface\RaidFrame\RaidPanel-Toggle">
+					<TexCoords left="1" right="0.5" top="0" bottom="1"/>
+					<Color r=".85" g=".697" b="0"/>
+				</NormalTexture>
+				<HighlightTexture file="Interface\RaidFrame\RaidPanel-Toggle">
+					<TexCoords left="1" right="0.5" top="0" bottom="1"/>
+					<Color r=".85" g=".85" b="1"/>
+				</HighlightTexture>
+			</Button>
+			<Button name="RematchSidePanelQueueButton" text="Queue" inherits="RematchPanelButtonTemplate">
+				<Size x="54" y="22"/>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				Rematch.SidePanelOnShow(self)
+			</OnShow>
+		</Scripts>
+	</Frame>
+
+</Ui>

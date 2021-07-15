@@ -1,0 +1,168 @@
+<Ui>
+
+	<Button name="RematchPetHealTemplate" inherits="RematchBaseSlotTemplate,RematchSmallIconTemplate,SecureActionButtonTemplate" virtual="true">
+		<Size x="26" y="26"/>
+		<PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+		<Frames>
+			<Cooldown parentKey="cooldown" setAllPoints="true" inherits="CooldownFrameTemplate"/>
+		</Frames>
+		<Scripts>
+			<OnEnter>
+				Rematch.HealButtonOnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<!-- the primary frame -->
+
+	<Frame name="Rematch" parent="UIParent" frameStrata="MEDIUM" hidden="true" movable="true" clampedToScreen="true" inherits="RematchBaseFrameTemplate,RematchDragTemplate">
+		<Size x="282" y="130"/>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Frames>
+			<Frame parentKey="selectedFrame" name="RematchSelectedFrame" hidden="true">
+<!--				<Size x="16" y="16"/>
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture file="Interface\ChatFrame\ChatFrameBackground" alpha="0.5" setAllPoints="true"/>
+					</Layer>
+				</Layers> -->
+				<Scripts>
+					<OnHide>
+						Rematch:SelectedFrameOnHide()
+					</OnHide>
+				</Scripts>
+			</Frame>
+			<Frame parentKey="panel" useParentLevel="true">
+				<Size x="282" y="30"/>
+				<Anchors>
+					<!-- topleft is anchored to bottomleft of current in current init -->
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND" textureSubLevel="-1">
+						<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="3" y="3"/>
+								<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+					<Layer level="BACKGROUND">
+						<Texture file="Interface\Common\ShadowOverlay-Corner">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="3" y="3"/>
+								<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+							</Anchors>
+							<TexCoords left="1" right="0" top="0" bottom="1"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+			<Button parentKey="petheal" inherits="RematchPetHealTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="-8" y="-24"/>
+				</Anchors>
+				<Attributes>
+					<Attribute name="type" value="spell"/>
+					<Attribute name="spell" value="125439"/>
+				</Attributes>
+			</Button>
+			<Button parentKey="bandage" inherits="RematchPetHealTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="-8" y="-52"/>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString parentKey="count" text="0" inherits="SystemFont_Outline_Small">
+							<Anchors>
+								<Anchor point="CENTER" x="1" y="0"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Attributes>
+					<Attribute name="type" value="item"/>
+					<Attribute name="item" value="item:86143"/>
+				</Attributes>
+			</Button>
+			<Button name="RematchBrowserButton" parentKey="browserButton" text="PETS" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" x="6" y="6"/>
+				</Anchors>
+			</Button>
+			<Button name="RematchSaveButton" parentKey="saveButton" text="SAVE" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.browserButton" relativePoint="TOPRIGHT"/>
+				</Anchors>
+			</Button>
+			<Button name="RematchCloseButton" parentKey="closeButton" text="CLOSE" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
+				</Anchors>
+			</Button>
+			<Button name="RematchLoadButton" parentKey="loadButton" text="Load" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeKey="$parent.closeButton" relativePoint="TOPLEFT"/>
+				</Anchors>
+			</Button>
+			<Button parentKey="toggle">
+				<Size x="27" y="27"/>
+				<Anchors>
+					<Anchor point="BOTTOM" x="0" y="3"/>
+				</Anchors>
+				<NormalTexture file="Interface\ChatFrame\UI-ChatIcon-Maximize-Up"/>
+				<PushedTexture file="Interface\ChatFrame\UI-ChatIcon-Maximize-Down"/>
+				<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+				<Scripts>
+					<OnClick>
+						Rematch:ToggleDrawer()
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<!-- frame that appears over whole works when a confirmation window up -->
+			<Frame parentKey="confirmBlackout" enableMouse="true" frameStrata="HIGH" hidden="true">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="2" y="-2"/>
+					<Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture file="Interface\ChatFrame\ChatFrameBackground" setAllPoints="true">
+							<Color r=".15" g=".15" b=".15" a=".5"/>
+						</Texture>
+						<!-- blackout over header, may need to anchor to header itself -->
+						<Texture file="Interface\ChatFrame\ChatFrameBackground">
+							<Size x="138" y="10"/>
+							<Anchors>
+								<Anchor point="BOTTOM" relativePoint="TOP" x="0" y="0"/>
+							</Anchors>
+							<Color r=".15" g=".15" b=".15" a=".5"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self:RegisterEvent("PLAYER_LOGIN")
+			</OnLoad>
+			<OnShow>
+				self:OnShow()
+			</OnShow>
+			<OnHide>
+				self:OnHide()
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+</Ui>

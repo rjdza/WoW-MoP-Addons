@@ -1,0 +1,16 @@
+## Interface: 50400
+## Title: DKCrutch
+## Notes: Death Knight rune tracker and rotation helper
+## Author: Taracque, Dšgrov‡s of Arathor
+## Version: 0.9.6
+## SavedVariables: DKCrutchDB
+## OptionalDeps:
+## Dependencies:
+## X-Curse-Packaged-Version: v0.9.4release-5-gdb9dad1
+## X-Curse-Project-Name: DKCrutch
+## X-Curse-Project-ID: dkcrutch
+## X-Curse-Repository-ID: wow/dkcrutch/mainline
+
+DKCrutch.lua
+DKCrutch_GUI.lua
+locales\enUS.lua

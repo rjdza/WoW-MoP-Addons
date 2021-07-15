@@ -1,0 +1,219 @@
+<Ui>
+
+	<Button name="RematchSavedPetTemplate" inherits="RematchBasePetTemplate,RematchMediumIconTemplate,RematchActivePetTemplate" virtual="true">
+		<Size x="40" y="40"/>
+		<Frames>
+			<Button parentArray="ability" inherits="RematchBaseSlotTemplate,RematchTinyIconTemplate,RematchBaseAbilityTemplate">
+				<Size x="16" y="16"/>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativePoint="RIGHT" x="2" y="9"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="ability" inherits="RematchBaseSlotTemplate,RematchTinyIconTemplate,RematchBaseAbilityTemplate">
+				<Size x="16" y="16"/>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="RIGHT" x="2" y="0"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="ability" inherits="RematchBaseSlotTemplate,RematchTinyIconTemplate,RematchBaseAbilityTemplate">
+				<Size x="16" y="16"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="RIGHT" x="2" y="-9"/>
+				</Anchors>
+			</Button>
+		</Frames>
+	</Button>
+
+	<Frame parentKey="saved" parent="Rematch" useParentLevel="true" hidden="true">
+		<Size x="282" y="64"/>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeKey="$parent.current" relativePoint="BOTTOMLEFT"/>
+		</Anchors>
+		<Frames>
+			<Frame name="RematchSavedHeader" parentKey="header" inherits="RematchHeaderTemplate">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP" x="0" y="3"/>
+				</Anchors>
+			</Frame>
+			<Button parentArray="pet" inherits="RematchSavedPetTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="10" y="-18"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="pet" inherits="RematchSavedPetTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="76" y="-18"/>
+				</Anchors>
+			</Button>
+			<Button parentArray="pet" inherits="RematchSavedPetTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="142" y="-18"/>
+				</Anchors>
+			</Button>
+			<!-- Hints frame to right of saved pets - shows string/weak types -->
+			<Frame parentKey="hints"> 
+				<Size x="68" y="50"/>
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize val="12"/>
+					<BorderColor r="1" g=".82" b="0" a=".5"/>
+				</Backdrop>
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="-10" y="-13"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture parentArray="icon" file="Interface\PetBattles\BattleBar-AbilityBadge-Strong">
+							<Size x="20" y="20"/>
+							<Anchors>
+								<Anchor point="CENTER" relativePoint="TOPLEFT" x="14" y="-14"/>
+							</Anchors>
+							<TexCoords left="0.05" right="0.95" top="0.05" bottom="0.95"/>
+						</Texture>
+						<Texture parentArray="icon">
+							<Size x="20" y="20"/>
+							<Anchors>
+								<Anchor point="CENTER" relativePoint="TOPLEFT" x="34" y="-14"/>
+							</Anchors>
+							<TexCoords left="0.4921875" right="0.796875" top="0.50390625" bottom="0.65625"/>
+						</Texture>
+						<Texture parentArray="icon">
+							<Size x="20" y="20"/>
+							<Anchors>
+								<Anchor point="CENTER" relativePoint="TOPLEFT" x="54" y="-14"/>
+							</Anchors>
+							<TexCoords left="0.4921875" right="0.796875" top="0.50390625" bottom="0.65625"/>
+						</Texture>
+						<Texture parentArray="icon" file="Interface\PetBattles\BattleBar-AbilityBadge-Weak">
+							<Size x="20" y="20"/>
+							<Anchors>
+								<Anchor point="CENTER" relativePoint="BOTTOMLEFT" x="14" y="14"/>
+							</Anchors>
+							<TexCoords left="0.05" right="0.95" top="0.05" bottom="0.95"/>
+						</Texture>
+						<Texture parentArray="icon">
+							<Size x="20" y="20"/>
+							<Anchors>
+								<Anchor point="CENTER" relativePoint="BOTTOMLEFT" x="34" y="14"/>
+							</Anchors>
+							<TexCoords left="0.4921875" right="0.796875" top="0.50390625" bottom="0.65625"/>
+						</Texture>
+						<Texture parentArray="icon">
+							<Size x="20" y="20"/>
+							<Anchors>
+								<Anchor point="CENTER" relativePoint="BOTTOMLEFT" x="54" y="14"/>
+							</Anchors>
+							<TexCoords left="0.4921875" right="0.796875" top="0.50390625" bottom="0.65625"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+	</Frame>
+
+	<Frame name="RematchSaveAs" parentKey="saveAs" parent="Rematch" frameLevel="10" hidden="true" inherits="RematchDragTemplate">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="RematchCurrent" relativePoint="BOTTOMLEFT" x="0" y="6"/>
+			<Anchor point="BOTTOMRIGHT" relativeTo="Rematch" relativePoint="BOTTOMRIGHT"/>
+		</Anchors>
+		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize val="16"/>
+			<BorderColor r="1" g=".82" b="0"/>
+		</Backdrop>
+		<Layers>
+			<Layer level="BACKGROUND" textureSubLevel="-1">
+				<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\Common\ShadowOverlay-Corner">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+					<TexCoords left="1" right="0" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString parentKey="warning" text="A team already has this name." inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="BOTTOM">
+					<Size x="90" y="40"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" x="54" y="9"/>
+					</Anchors>
+				</FontString>
+				<Texture parentKey="warningIcon" file="Interface\DialogFrame\UI-Dialog-Icon-AlertNew">
+					<Size x="22" y="22"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" x="28" y="6"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="RematchSaveAsHeader" parentKey="header" inherits="RematchHeaderTemplate">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP" x="0" y="-3"/>
+				</Anchors>
+			</Frame>
+			<Button name="RematchSaveAsCloseButton" parentKey="closeButton" text="CLOSE" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
+				</Anchors>
+			</Button>
+			<Button name="RematchSaveAsSaveButton" parentKey="saveButton" text="SAVE" inherits="RematchPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="RIGHT" relativeKey="$parent.closeButton" relativePoint="LEFT"/>
+				</Anchors>
+			</Button>
+			<Frame inherits="RematchDarkInsetTemplate">
+				<Size x="240" y="26"/>
+				<Anchors>
+					<Anchor point="TOP" x="0" y="-16"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString text="Please enter a name for this new team." inherits="GameFontHighlightSmall" setAllPoints="true" justifyH="CENTER" justifyV="CENTER"/>
+					</Layer>
+				</Layers>
+			</Frame>
+			<Frame parentKey="editBoxFrame" inherits="RematchDarkInsetTemplate">
+				<Size x="240" y="26"/>
+				<Anchors>
+					<Anchor point="TOP" x="0" y="-42"/>
+				</Anchors>
+				<Frames>
+					<EditBox parentKey="editBox" name="$parentEditBox" autoFocus="true">
+						<Size x="208" y="20"/>
+						<Anchors>
+							<Anchor point="CENTER"/>
+						</Anchors>
+						<FontString inherits="ChatFontNormal"/>
+						<Scripts>
+							<OnEscapePressed>
+								Rematch.saveAs:Hide()
+							</OnEscapePressed>
+							<OnEnterPressed>
+								Rematch:SaveAsSave()
+							</OnEnterPressed>
+							<OnTextChanged>
+								Rematch:SaveAsEditBoxChanged()
+							</OnTextChanged>
+						</Scripts>
+					</EditBox>
+				</Frames>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				Rematch:SaveAsOnShow()
+			</OnShow>
+			<OnHide>
+				Rematch:SaveAsOnHide()
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+</Ui>

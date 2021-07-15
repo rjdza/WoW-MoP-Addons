@@ -1,0 +1,827 @@
+<Ui>
+
+	<!-- template for the six abilities listed at the bottom of the card -->
+	<Button name="RematchFloatingPetCardAbilityTemplate" useParentLevel="true" virtual="true">
+		<Size x="88" y="24"/>
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture parentKey="type">
+					<Size x="24" y="24"/>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.4921875" right="0.796875" top="0.50390625" bottom="0.65625"/>
+				</Texture>
+				<Texture parentKey="icon" hidden="true">
+					<Size x="24" y="24"/>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</Texture>
+				<FontString parentKey="name" inherits="SystemFont_Small" justifyH="LEFT" justifyV="CENTER">
+					<Size x="62" y="24"/>
+					<Color r="1" g=".82" b=".5"/>
+					<Shadow>
+						<Offset>
+							<AbsDimension x="1" y="-1"/>
+						</Offset>
+						<Color r="0" g="0" b="0"/>
+					</Shadow>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.type" relativePoint="TOPRIGHT" x="2" y="0"/>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<HighlightTexture file="Interface\PetBattles\PetBattleHUD" alphaMode="ADD">
+			<Size x="24" y="24"/>
+			<Anchors>
+				<Anchor point="LEFT"/>
+			</Anchors>
+			<TexCoords left="0.884765625" right="0.943359375" top="0.681640625" bottom="0.798828125"/>
+		</HighlightTexture>
+		<Scripts>
+			<OnClick>
+				Rematch.AbilityOnClick(self)
+			</OnClick>
+			<OnEnter>
+				Rematch.FloatingPetCardAbilityOnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				Rematch.FloatingPetCardAbilityOnLeave(self)
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<!-- template for the four "screws" at corners of the wooden lock frame -->
+	<Button name="RematchCardUnlockTemplate" inherits="RematchClearButtonTemplate" virtual="true">
+		<Scripts>
+			<OnClick>
+				Rematch.HideFloatingPetCard(self,true)
+			</OnClick>
+			<OnShow>
+				self:GetScript("OnLeave")(self)
+			</OnShow>
+		</Scripts>
+	</Button>
+
+	<!-- template for each for of breed stats in .breeds frame -->
+	<Frame name="RematchFloatingPetCardBreedTableTemplate" useParentLevel="true" virtual="true">
+		<Size x="132" y="14"/>
+		<Layers>
+			<Layer level="BORDER">
+				<FontString parentKey="breed" inherits="GameFontHighlightSmall" justifyH="CENTER" justifyV="CENTER" text="W/W">
+					<Size x="30" y="13"/>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="health" inherits="GameFontHighlightSmall" justifyH="RIGHT" justifyV="CENTER" text="13333">
+					<Size x="42" y="13"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.breed" relativePoint="RIGHT"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="power" inherits="GameFontHighlightSmall" justifyH="RIGHT" justifyV="CENTER" text="333">
+					<Size x="30" y="13"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.health" relativePoint="RIGHT"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="speed" inherits="GameFontHighlightSmall" justifyH="RIGHT" justifyV="CENTER" text="333">
+					<Size x="30" y="13"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.power" relativePoint="RIGHT"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<!-- the main card itself -->
+	<Frame name="RematchFloatingPetCard" parent="UIParent" clampedToScreen="true" frameStrata="FULLSCREEN_DIALOG" hidden="true">
+		<Size x="200" y="280"/>
+		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+			<BorderColor r="1" g=".82" b="0"/>
+		</Backdrop>
+		<Layers>
+			<Layer level="BACKGROUND" textureSubLevel="-1">
+				<!-- grey background to main part of card -->
+				<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-46"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="90"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<!-- left background panel to title -->
+				<Texture parentKey="leftTitleBG" file="Interface\PetBattles\PetJournal">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="4" y="-4"/>
+						<Anchor point="BOTTOMRIGHT" relativePoint="TOP" x="0" y="-44"/>
+					</Anchors>
+					<TexCoords left="0.791015625" right="0.400390625" top="0.486328125" bottom="0.564453125"/>
+				</Texture>
+				<!-- right background panel to title -->
+				<Texture parentKey="rightTitleBG" file="Interface\PetBattles\PetJournal">
+					<Anchors>
+						<Anchor point="TOPRIGHT" x="-4" y="-4"/>
+						<Anchor point="BOTTOMLEFT" relativePoint="TOP" x="0" y="-44"/>
+					</Anchors>
+					<TexCoords left="0.400390625" right="0.791015625" top="0.486328125" bottom="0.564453125"/>
+				</Texture>
+				<!-- left background panel to abilities -->
+				<Texture parentKey="leftAbilitiesBG" file="Interface\PetBattles\PetJournal">
+					<Size x="96" y="84"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" x="4" y="4"/>
+					</Anchors>
+					<TexCoords left="0.79296875" right="0.41796875" top="0.56640625" bottom="0.486328125"/>
+				</Texture>
+				<!-- right background panel to abilities -->
+				<Texture parentKey="rightAbilitiesBG" file="Interface\PetBattles\PetJournal">
+					<Size x="96" y="84"/>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+					</Anchors>
+					<TexCoords left="0.41796875" right="0.79296875" top="0.56640625" bottom="0.486328125"/>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture file="Interface\Common\ShadowOverlay-Corner">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="4" y="-46"/>
+						<Anchor point="BOTTOMRIGHT" x="-4" y="90"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="1" bottom="0"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<!-- shadow beneath the model -->
+				<Texture file="Interface\PetBattles\PetJournal">
+					<Anchors>
+						<Anchor point="TOPRIGHT" x="-12" y="-100"/>
+					</Anchors>
+					<Size x="132" y="96"/>	
+					<TexCoords left="0.52734375" right="0.79687500" top="0.02246094" bottom="0.09277344"/>	
+				</Texture>
+				<!-- large name in title -->
+				<FontString parentKey="name" inherits="SystemFont_Shadow_Med1_Outline" justifyH="CENTER" justifyV="CENTER">
+					<Color r="1" g=".82" b=".5"/>
+					<Size x="122" y="40"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-4"/>
+					</Anchors>
+				</FontString>
+				<!-- real name (if a custom name used) that appears in stats area, but can appear for non-battle pets -->
+				<FontString parentKey="realName" inherits="GameFontNormalSmall" justifyH="LEFT" justifyV="CENTER">
+					<Size x="160" y="18"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="10" y="-48"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY">
+				<!-- This is the line just below the pet name/icon/type -->
+				<Texture parentKey="lineTitleBG" file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-41"/>
+						<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-3" y="-58"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0.09375" bottom="0.21875"/>
+				</Texture>
+				<!-- This is the line just above the abilities -->
+				<Texture parentKey="lineAbilitiesBG" file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="3" y="103"/>
+						<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-3" y="86"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0.21875" bottom="0.09375"/>
+				</Texture>
+				<FontString parentKey="cantbattle" inherits="GameFontNormalSmall" justifyH="CENTER" justifyV="CENTER" text="BATTLE_PET_CANNOT_BATTLE">
+					<Size x="100" y="50"/>
+					<Anchors>
+						<Anchor point="BOTTOM" x="0" y="32"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+
+			<!-- this frame covers the "main" area of the card; when the user mouseovers it, the breedTable opens -->
+			<Frame parentKey="main">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.lineTitleBG" relativePoint="TOPLEFT" x="3" y="-5"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.lineAbilitiesBG" relativePoint="BOTTOMRIGHT" x="-2" y="8"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture parentKey="blackout" setAllPoints="true" alpha="0">
+							<Color r="0" g="0" b="0" a=".5"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Frames>
+					<!-- table of possible breeds shown when card is locked -->
+					<Frame parentKey="breedTable" inherits="RematchBaseFrameTemplate" hidden="true">
+						<Size x="148" y="184"/>
+						<Anchors>
+							<Anchor point="CENTER"/>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND" textureSubLevel="-1">
+								<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+									<Anchors>
+										<Anchor point="TOPLEFT" x="3" y="-3"/>
+										<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+									</Anchors>
+								</Texture>
+							</Layer>
+							<Layer level="BACKGROUND">
+								<Texture file="Interface\Common\ShadowOverlay-Corner">
+									<Anchors>
+										<Anchor point="TOPLEFT" x="3" y="-3"/>
+										<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+									</Anchors>
+									<TexCoords left="0" right="1" top="0" bottom="1"/>
+								</Texture>
+							</Layer>
+							<Layer level="BORDER">
+								<FontString parentKey="title" inherits="GameFontHighlightSmall">
+									<Anchors>
+										<Anchor point="TOP" relativePoint="TOP" x="0" y="-8"/>
+									</Anchors>
+								</FontString>
+								<!-- breed header -->
+								<Texture file="Interface\AchievementFrame\UI-Achievement-Progressive-Shield">
+									<Size x="14" y="14"/>
+									<Anchors>
+										<Anchor point="TOPLEFT" x="15" y="-21"/>
+									</Anchors>
+									<TexCoords left="0.09375" right="0.578125" top="0.140625" bottom="0.625"/>
+								</Texture>
+								<!-- health header -->
+								<Texture file="Interface\PetBattles\PetBattle-StatIcons">
+									<Size x="14" y="14"/>
+									<Anchors>
+										<Anchor point="TOPLEFT" x="59" y="-21"/>
+									</Anchors>
+									<TexCoords left="0.5" right="1.0" top="0.5" bottom="1.0"/>
+								</Texture>
+								<!-- power header -->
+								<Texture file="Interface\PetBattles\PetBattle-StatIcons">
+									<Size x="14" y="14"/>
+									<Anchors>
+										<Anchor point="TOPLEFT" x="92" y="-21"/>
+									</Anchors>
+									<TexCoords left="0" right="0.5" top="0" bottom="0.5"/>
+								</Texture>
+								<!-- speed header -->
+								<Texture file="Interface\PetBattles\PetBattle-StatIcons">
+									<Size x="14" y="14"/>
+									<Anchors>
+										<Anchor point="TOPLEFT" x="121" y="-21"/>
+									</Anchors>
+									<TexCoords left="0" right="0.5" top="0.5" bottom="1.0"/>
+								</Texture>
+								<!-- highlight behind the current breed (if there is one) -->
+								<Texture parentKey="highlight"> <!-- file="Interface\TargetingFrame\BarFill2"> -->
+									<Size x="134" y="14"/>
+									<Anchors>
+										<Anchor point="BOTTOMLEFT" x="8" y="8"/>
+									</Anchors>
+									<Color r=".1" g=".35" b=".85" a=".5"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Frames>
+							<!-- stat rows where breed, health, power and speed are listed -->
+							<Frame parentArray="row" inherits="RematchFloatingPetCardBreedTableTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="8" y="-36"/>
+								</Anchors>
+							</Frame>
+							<Frame parentArray="row" inherits="RematchFloatingPetCardBreedTableTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="8" y="-50"/>
+								</Anchors>
+							</Frame>
+							<Frame parentArray="row" inherits="RematchFloatingPetCardBreedTableTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="8" y="-64"/>
+								</Anchors>
+							</Frame>
+							<Frame parentArray="row" inherits="RematchFloatingPetCardBreedTableTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="8" y="-78"/>
+								</Anchors>
+							</Frame>
+							<Frame parentArray="row" inherits="RematchFloatingPetCardBreedTableTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="8" y="-92"/>
+								</Anchors>
+							</Frame>
+							<Frame parentArray="row" inherits="RematchFloatingPetCardBreedTableTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="8" y="-106"/>
+								</Anchors>
+							</Frame>
+							<Frame parentArray="row" inherits="RematchFloatingPetCardBreedTableTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="8" y="-120"/>
+								</Anchors>
+							</Frame>
+							<Frame parentArray="row" inherits="RematchFloatingPetCardBreedTableTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="8" y="-134"/>
+								</Anchors>
+							</Frame>
+							<Frame parentArray="row" inherits="RematchFloatingPetCardBreedTableTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="8" y="-148"/>
+								</Anchors>
+							</Frame>
+							<Frame parentArray="row" inherits="RematchFloatingPetCardBreedTableTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="8" y="-162"/>
+								</Anchors>
+							</Frame>
+						</Frames>
+					</Frame>
+				</Frames>
+				<Scripts>
+					<OnEnter>
+						Rematch.ShowBreedTable(self)
+					</OnEnter>
+					<OnLeave>
+						Rematch.HideBreedTable(self)
+					</OnLeave>
+				</Scripts>
+			</Frame>
+
+			<!-- pet model in stats section of card -->
+			<PlayerModel name="$parentModelFrame" useParentLevel="true" parentKey="model">
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="-4" y="-50"/>
+					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="-139" y="95"/>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						Model_OnLoad(self);
+						self:SetRotation(-MODELFRAME_DEFAULT_ROTATION);
+					</OnLoad>
+				</Scripts>
+			</PlayerModel>
+
+			<!-- title pet icon in topleft (will be SetPortraitToTexture'd) and overlay circle -->
+			<Button parentKey="icon">
+				<Size x="36" y="36"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="6" y="-6"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture parentKey="icon" setAllPoints="true"/>
+					</Layer>
+					<Layer level="ARTWORK">
+						<Texture file="Interface\PetBattles\PetBattleHUD" setAllPoints="true">
+							<TexCoords left="0.884765625" right="0.943359375" top="0.681640625" bottom="0.798828125"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<HighlightTexture file="Interface\PetBattles\PetBattleHUD" setAllPoints="true" alphaMode="ADD">
+					<TexCoords left="0.884765625" right="0.943359375" top="0.681640625" bottom="0.798828125"/>
+				</HighlightTexture>
+				<Scripts>
+					<OnEnter>
+						self:GetParent().name:SetTextColor(1,1,1)
+						self:GetParent().back:Show()
+					</OnEnter>
+					<OnLeave>
+						self:GetParent().name:SetTextColor(1,.82,.5)
+						self:GetParent().back:Hide()
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<!-- title type icon in topright -->
+			<Button parentKey="petType">
+				<Size x="37" y="37"/>
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="-4" y="-6"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture parentKey="icon" setAllPoints="true">
+							<TexCoords left="0.4921875" right="0.796875" top="0.50390625" bottom="0.65625"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<HighlightTexture file="Interface\PetBattles\PetBattleHUD" setAllPoints="true" alphaMode="ADD">
+					<TexCoords left="0.884765625" right="0.943359375" top="0.681640625" bottom="0.798828125"/>
+				</HighlightTexture>
+				<Scripts>
+					<OnEnter>
+						self:GetParent().name:SetTextColor(1,1,1)
+						self:GetParent().back:Show()
+					</OnEnter>
+					<OnLeave>
+						self:GetParent().name:SetTextColor(1,.82,.5)
+						self:GetParent().back:Hide()
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<Frame parentKey="abilities" setAllPoints="true" useParentLevel="true">
+				<Frames>
+					<!-- the six abilities in the ability portion of the card -->
+					<Button parentKey="3" inherits="RematchFloatingPetCardAbilityTemplate" id="3">
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" x="12" y="10"/>
+						</Anchors>
+					</Button>
+					<Button parentKey="2" inherits="RematchFloatingPetCardAbilityTemplate" id="2">
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" relativeKey="$parent.3" relativePoint="TOPLEFT" x="0" y="1"/>
+						</Anchors>
+					</Button>
+					<Button parentKey="1" inherits="RematchFloatingPetCardAbilityTemplate" id="1">
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" relativeKey="$parent.2" relativePoint="TOPLEFT" x="0" y="1"/>
+						</Anchors>
+					</Button>
+					<Button parentKey="6" inherits="RematchFloatingPetCardAbilityTemplate" id="6">
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" relativeKey="$parent.3" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+						</Anchors>
+					</Button>
+					<Button parentKey="5" inherits="RematchFloatingPetCardAbilityTemplate" id="5">
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" relativeKey="$parent.2" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+						</Anchors>
+					</Button>
+					<Button parentKey="4" inherits="RematchFloatingPetCardAbilityTemplate" id="4">
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" relativeKey="$parent.1" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+
+			<!-- stats displayed in the stats part of the card for owned pets -->
+			<Frame parentKey="stats" useParentLevel="true">
+				<!-- size/anchor is just for stats along left of card.
+						 level/pennant and xp bar are children of this frame but anchored from main card -->
+				<Size x="78" y="75"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="10" y="-66"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<!-- level of the pet (stats.level) -->
+						<Texture parentKey="pennant" file="Interface\AchievementFrame\UI-Achievement-Guild">
+							<Size x="32" y="26"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT" relativeTo="RematchFloatingPetCard" x="-7" y="-47"/>
+							</Anchors>
+							<TexCoords left="0.1171875" right="0.25390625" top="0.609375" bottom="0.74609375"/>
+						</Texture>
+						<FontString parentKey="level" inherits="SystemFont_Shadow_Med1_Outline" justifyH="LEFT" justifyV="CENTER">
+							<Anchors>
+								<Anchor point="CENTER" relativeKey="$parent.pennant" relativePoint="CENTER" x="0" y="3"/>
+							</Anchors>
+						</FontString>
+
+						<Texture parentKey="healthIcon" file="Interface\PetBattles\PetBattle-StatIcons">
+							<Size x="14" y="14"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" x="2" y="0"/>
+							</Anchors>
+							<TexCoords left="0.5" right="1.0" top="0.5" bottom="1.0"/>
+						</Texture>
+						<FontString parentKey="health" text="9999" inherits="GameFontHighlightSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.healthIcon" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+						</FontString>
+						<Texture parentKey="hpBack" file="Interface\Archeology\Arch-Progress-BG">
+							<Size x="50" y="7"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.healthIcon" relativePoint="BOTTOMLEFT" x="-2" y="-1"/>
+							</Anchors>
+							<TexCoords left="0.005859375" right="0.837890625" top="0.046875" bottom="0.640625"/>
+						</Texture>
+						<Texture parentKey="powerIcon" file="Interface\PetBattles\PetBattle-StatIcons">
+							<Size x="14" y="14"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.hpBack" relativePoint="BOTTOMLEFT" x="2" y="-2"/>
+							</Anchors>
+							<TexCoords left="0" right="0.5" top="0" bottom="0.5"/>
+						</Texture>
+						<FontString parentKey="power" text="999" inherits="GameFontHighlightSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.powerIcon" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+						</FontString>
+						<Texture parentKey="speedIcon" file="Interface\PetBattles\PetBattle-StatIcons">
+							<Size x="14" y="14"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.powerIcon" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
+							</Anchors>
+							<TexCoords left="0" right="0.5" top="0.5" bottom="1.0"/>
+						</Texture>
+						<FontString parentKey="speed" text="999" inherits="GameFontHighlightSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.speedIcon" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+						</FontString>
+						<Texture parentKey="qualityIcon" file="Interface\PetBattles\PetBattle-StatIcons">
+							<Size x="14" y="14"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.speedIcon" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
+							</Anchors>
+							<TexCoords left="0.55" right="0.95" top="0.05" bottom="0.45"/>
+						</Texture>
+						<FontString parentKey="quality" text="Quality" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="CENTER">
+							<Size x="80" y="14"/>
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.qualityIcon" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+						</FontString>
+						<Texture parentKey="breedIcon" file="Interface\AchievementFrame\UI-Achievement-Progressive-Shield" hidden="true">
+							<Size x="14" y="14"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.qualityIcon" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
+							</Anchors>
+							<TexCoords left="0.09375" right="0.578125" top="0.140625" bottom="0.625"/>
+						</Texture>
+						<FontString parentKey="breed" inherits="GameFontHighlightSmall" hidden="true">
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.breedIcon" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+					<Layer level="OVERLAY">
+						<Texture parentKey="hpBar" file="Interface\TargetingFrame\UI-TargetingFrame-BarFill">
+							<Size x="48" y="5"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.hpBack" relativePoint="TOPLEFT" x="1" y="-1"/>
+							</Anchors>
+							<TexCoords left="0" right="0.85" top="0" bottom="1"/>
+							<Color r="0" g="0.85" b="0"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Frames>
+					<StatusBar parentKey="xpBar" useParentLevel="true">
+						<Size x="184" y="11"/>
+						<Anchors>
+							<Anchor point="BOTTOM" relativeTo="RematchFloatingPetCard" x="0" y="92"/>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString inherits="TextStatusBarText" parentKey ="rankText" text="0/0">
+									<Anchors>
+										<Anchor point="CENTER" x="0" y="0"/>
+									</Anchors>
+								</FontString>
+								<Texture parentKey="left" file="Interface\PetBattles\PetJournal">
+									<Anchors>
+										<Anchor point="RIGHT" relativePoint="LEFT"  x="9" y="0"/>
+									</Anchors>
+									<Size x="11" y="11"/>	
+									<TexCoords left="0.02734375" right="0.04882813" top="0.00976563" bottom="0.02050781"/>	
+								</Texture>
+								<Texture parentKey="right" file="Interface\PetBattles\PetJournal">
+									<Anchors>
+										<Anchor point="LEFT" relativePoint="RIGHT"  x="-9" y="0"/>
+									</Anchors>
+									<Size x="11" y="11"/>	
+									<TexCoords left="0.07812500" right="0.09960938" top="0.00976563" bottom="0.02050781"/>	
+								</Texture>
+								<Texture file="Interface\PetBattles\PetJournal">
+									<Anchors>
+										<Anchor point="TOPLEFT" relativeKey="$parent.left" relativePoint="TOPRIGHT"/>
+										<Anchor point="BOTTOMRIGHT" relativeKey="$parent.right" relativePoint="BOTTOMLEFT"/>
+									</Anchors>
+									<TexCoords left="0.05273438" right="0.07421875" top="0.00976563" bottom="0.02050781"/>	
+								</Texture>
+							</Layer>
+							<Layer level="BACKGROUND">
+								<Texture file="Interface\PetBattles\PetJournal">
+									<Anchors>
+										<Anchor point="TOPLEFT" x="2" y="0"/>
+										<Anchor point="BOTTOMRIGHT" x="-2" y="0"/>
+									</Anchors>
+									<TexCoords left="0.00195313" right="0.02343750" top="0.00976563" bottom="0.02050781"/>	
+								</Texture>
+							</Layer>
+						</Layers>
+						<BarTexture file="Interface\PaperDollInfoFrame\UI-Character-Skills-Bar" />
+						<BarColor r="0.2" g="0.6" b="1.0" />
+					</StatusBar>
+				</Frames>
+			</Frame>
+
+			<!-- "back" of the card that's shown when ALT is held -->
+			<Frame parentKey="back"> <!-- was enableMouse="true" if ever problems with this -->
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="16"/>
+					</EdgeSize>
+					<BorderColor r="1" g=".82" b="0"/>
+				</Backdrop>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="3" y="-47"/>
+								<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+					<Layer level="BORDER">
+						<Texture file="Interface\Common\ShadowOverlay-Corner">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="4" y="-47"/>
+								<Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+							</Anchors>
+							<TexCoords left="0" right="1" top="1" bottom="0"/>
+						</Texture>
+					</Layer>
+					<Layer level="ARTWORK">
+						<!-- the source can be varying number of lines, we anchor separator to bottom of this -->
+						<FontString parentKey="source" inherits="GameFontHighlightSmall" justifyH="LEFT">
+							<Size x="176" y="0"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" x="12" y="-54"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+					<Layer level="OVERLAY">
+						<!-- This is the line just below the source text -->
+						<Texture parentKey="lineSourceBG" file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+							<Size x="194" y="17"/>
+							<Anchors>
+								<Anchor point="TOP" relativeKey="$parent.source" relativePoint="BOTTOM" x="0" y="4"/>
+							</Anchors>
+							<TexCoords left="0" right="1" top="0.21875" bottom="0.09375"/>
+						</Texture>
+					</Layer>
+					<Layer level="ARTWORK">
+						<FontString text="Damage Taken" inherits="GameFontNormalSmall" justifyH="CENTER" justifyV="CENTER">
+							<Size x="60" y="48"/>
+							<Anchors>
+								<Anchor point="BOTTOMLEFT" x="4" y="6"/>
+							</Anchors>
+						</FontString>
+						<Texture parentKey="weakIcon" file="Interface\PetBattles\BattleBar-AbilityBadge-Weak">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="BOTTOMLEFT" x="60" y="6"/>
+							</Anchors>
+							<TexCoords left="0.125" right="0.875" top="0.125" bottom="0.875"/>
+						</Texture>
+						<FontString parentKey="weakFrom" text="from" inherits="GameFontHighlightSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.weakIcon" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+						</FontString>
+						<Texture parentKey="weakType" file="Interface\PetBattles\PetIcon-Humanoid">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.weakFrom" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+							<TexCoords left="0.4921875" right="0.796875" top="0.50390625" bottom="0.652625"/>
+						</Texture>
+						<FontString text="abilities" inherits="GameFontHighlightSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.weakType" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+						</FontString>
+						<Texture parentKey="strongIcon" file="Interface\PetBattles\BattleBar-AbilityBadge-Strong">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="BOTTOMLEFT" x="60" y="32"/>
+							</Anchors>
+							<TexCoords left="0.125" right="0.875" top="0.125" bottom="0.875"/>
+						</Texture>
+						<FontString parentKey="strongFrom" text="from" inherits="GameFontHighlightSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.strongIcon" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+						</FontString>
+						<Texture parentKey="strongType" file="Interface\PetBattles\PetIcon-Beast">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.strongFrom" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+							<TexCoords left="0.4921875" right="0.796875" top="0.50390625" bottom="0.652625"/>
+						</Texture>
+						<FontString text="abilities" inherits="GameFontHighlightSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativeKey="$parent.strongType" relativePoint="RIGHT" x="1" y="0"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+					<Layer level="OVERLAY">
+						<!-- This is the line above the damage taken section -->
+						<Texture parentKey="lineTakenBG" file="Interface\PetBattles\_PetJournalHorizTile" horizTile="true">
+							<Size x="194" y="17"/>
+							<Anchors>
+								<Anchor point="BOTTOM" x="0" y="48"/>
+							</Anchors>
+							<TexCoords left="0" right="1" top="0.09375" bottom="0.21875"/>
+						</Texture>
+					</Layer>
+					<Layer level="ARTWORK">
+						<FontString parentKey="description" font="Fonts\skurri.ttf" justifyH="LEFT">
+							<FontHeight val="14"/>
+							<Color r="0" g="0" b="0"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.lineSourceBG" relativePoint="BOTTOMLEFT" x="12" y="-2"/>
+								<Anchor point="BOTTOMRIGHT" relativeKey="$parent.lineTakenBG" relativePoint="TOPRIGHT" x="-12" y="2"/>
+							</Anchors>
+						</FontString>
+						<Texture file="Interface\Archeology\Arch-BookCompletedLeft"> <!-- file="Interface\AchievementFrame\UI-GuildAchievement-AchievementBackground"> -->
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.lineSourceBG" relativePoint="BOTTOMLEFT" x="2" y="4"/>
+								<Anchor point="BOTTOMRIGHT" relativeKey="$parent.lineTakenBG" relativePoint="TOPRIGHT" x="-2" y="-4"/>
+							</Anchors>
+							<Color r=".85" g=".85" b=".85"/>
+							<TexCoords left="0.140625" right="1" top="0" bottom=".9"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+
+			<!-- this is the wooden frame that borders the card to indicate it's locked -->
+			<Frame parentKey="lockFrame" frameStrata="FULLSCREEN" hidden="true">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="-16" y="16"/>
+					<Anchor point="BOTTOMRIGHT" x="16" y="-16"/>
+				</Anchors>
+				<Backdrop edgeFile="Interface\AchievementFrame\UI-Achievement-WoodBorder" tile="true">
+					<EdgeSize>
+						<AbsValue val="52"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="26"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="0" right="0" top="0" bottom="0"/>
+					</BackgroundInsets>
+					<BorderColor r="1" g=".82" b="0"/>
+				</Backdrop>
+				<Frames>
+					<!-- these cancel buttons conveniently look like screws, to unlock the card -->
+					<Button inherits="RematchCardUnlockTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" x="4" y="-4"/>
+						</Anchors>
+					</Button>
+					<Button inherits="RematchCardUnlockTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT" x="-4" y="-4"/>
+						</Anchors>
+					</Button>
+					<Button inherits="RematchCardUnlockTemplate">
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" x="4" y="4"/>
+						</Anchors>
+					</Button>
+					<Button inherits="RematchCardUnlockTemplate">
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self.back:SetFrameLevel(self.back:GetFrameLevel()+3)
+			</OnLoad>
+			<OnShow>
+				Rematch.FloatingPetCardOnShow(self)
+			</OnShow>
+			<OnHide>
+				Rematch.FloatingPetCardOnHide(self)
+			</OnHide>
+			<OnEvent>
+				self.back:SetShown(IsAltKeyDown())
+			</OnEvent>
+		</Scripts>
+	</Frame>
+
+</Ui>
